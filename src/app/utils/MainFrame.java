@@ -49,7 +49,6 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private Map<String, JTable> table_parameters_list = new HashMap<String, JTable>();
 	private JTabbedPane tabs = new JTabbedPane();
-	//private ComparisonFrame comp = new ComparisonFrame("Comparison", this);
 	private MainFrame instance;
 	
 	private final int COL_NUM_PARAM_TABLE_GRAPH_VALUE = 4;
