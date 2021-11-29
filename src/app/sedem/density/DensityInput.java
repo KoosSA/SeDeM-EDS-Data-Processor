@@ -16,8 +16,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import app.graphical.MainFrame;
 import app.utils.DataUtils;
-import app.utils.MainFrame;
 import app.utils.TableUtils;
 
 public class DensityInput extends JFrame {

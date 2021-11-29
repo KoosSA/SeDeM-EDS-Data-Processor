@@ -1,4 +1,4 @@
-package app.sedem.graph;
+package app.graphical;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

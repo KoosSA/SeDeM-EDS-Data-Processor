@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import app.utils.MainFrame;
+import app.graphical.MainFrame;
 import app.utils.TableUtils;
 
 public class CohesionIndexInput extends JFrame {

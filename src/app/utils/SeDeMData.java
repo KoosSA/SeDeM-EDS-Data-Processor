@@ -1,4 +1,4 @@
-package app.sedem;
+package app.utils;
 
 import app.sedem.cohesionIndex.CohesionIndexData;
 import app.sedem.density.DensityData;

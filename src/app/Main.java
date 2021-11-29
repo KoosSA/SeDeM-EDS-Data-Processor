@@ -1,6 +1,6 @@
 package app;
 
-import app.utils.MainFrame;
+import app.graphical.MainFrame;
 
 public class Main implements Runnable {
 

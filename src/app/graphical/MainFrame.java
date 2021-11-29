@@ -1,4 +1,4 @@
-package app.utils;
+package app.graphical;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,13 +27,11 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-import app.sedem.SeDeMData;
 import app.sedem.SeDeMParameters;
 import app.sedem.cohesionIndex.CohesionIndexData;
 import app.sedem.cohesionIndex.CohesionIndexInput;
 import app.sedem.density.DensityData;
 import app.sedem.density.DensityInput;
-import app.sedem.graph.SeDeMPolygon;
 import app.sedem.homogeneity.HomogenityData;
 import app.sedem.homogeneity.HomogenityInput;
 import app.sedem.hygroscopicity.HygroData;
@@ -42,6 +40,10 @@ import app.sedem.lossondrying.LODData;
 import app.sedem.lossondrying.LODInput;
 import app.sedem.powderflow.PowderFlowData;
 import app.sedem.powderflow.PowderFlowInput;
+import app.utils.FileUtil;
+import app.utils.ProjectData;
+import app.utils.SeDeMData;
+import app.utils.TableUtils;
 
 public class MainFrame extends JFrame {
 
