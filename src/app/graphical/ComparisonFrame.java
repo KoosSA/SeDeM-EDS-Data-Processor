@@ -19,6 +19,7 @@ import javax.swing.border.SoftBevelBorder;
 import app.sedem.SeDeMParameters;
 import app.utils.SeDeMData;
 
+@Deprecated
 public class ComparisonFrame extends JFrame {
 
 	private static final long serialVersionUID = 2909389028655044044L;
