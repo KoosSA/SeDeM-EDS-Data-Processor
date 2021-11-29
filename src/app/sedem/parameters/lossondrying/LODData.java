@@ -1,4 +1,4 @@
-package app.sedem.lossondrying;
+package app.sedem.parameters.lossondrying;
 
 import java.util.List;
 

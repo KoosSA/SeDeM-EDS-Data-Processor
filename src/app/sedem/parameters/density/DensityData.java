@@ -1,4 +1,4 @@
-package app.sedem.density;
+package app.sedem.parameters.density;
 
 import java.util.List;
 

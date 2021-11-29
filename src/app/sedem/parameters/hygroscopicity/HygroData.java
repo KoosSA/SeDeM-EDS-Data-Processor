@@ -1,4 +1,4 @@
-package app.sedem.hygroscopicity;
+package app.sedem.parameters.hygroscopicity;
 
 import java.util.List;
 

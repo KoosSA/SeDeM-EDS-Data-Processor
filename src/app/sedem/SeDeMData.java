@@ -1,11 +1,11 @@
-package app.utils;
+package app.sedem;
 
-import app.sedem.cohesionIndex.CohesionIndexData;
-import app.sedem.density.DensityData;
-import app.sedem.homogeneity.HomogenityData;
-import app.sedem.hygroscopicity.HygroData;
-import app.sedem.lossondrying.LODData;
-import app.sedem.powderflow.PowderFlowData;
+import app.sedem.parameters.cohesionIndex.CohesionIndexData;
+import app.sedem.parameters.density.DensityData;
+import app.sedem.parameters.homogeneity.HomogenityData;
+import app.sedem.parameters.hygroscopicity.HygroData;
+import app.sedem.parameters.lossondrying.LODData;
+import app.sedem.parameters.powderflow.PowderFlowData;
 
 public class SeDeMData {
 	

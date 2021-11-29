@@ -1,4 +1,4 @@
-package app.sedem.hygroscopicity;
+package app.sedem.parameters.lossondrying;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,19 +20,19 @@ import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
-public class HygroInput extends JFrame {
+public class LODInput extends JFrame {
 
 	private static final long serialVersionUID = 2105439747754898807L;
 	private JPanel contentPane;
-	private HygroData data = new HygroData();
+	private LODData data = new LODData();
 	private JTable table;
 	private DefaultTableModel model;
 	private MainFrame main;
 	private final int COL_NUM_MASS_AFTER = 1;
 	private final int COL_NUM_MASS_BEFORE = 0;
-	private float percent_gain;
+	private float percent_lost;
 
-	public HygroInput(MainFrame mainFrame) {
+	public LODInput(MainFrame mainFrame) {
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
 		main = mainFrame;
@@ -44,7 +44,7 @@ public class HygroInput extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Hygroscopicity Data");
+		JLabel lblNewLabel = new JLabel("Loss on Drying Data");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -121,28 +121,28 @@ public class HygroInput extends JFrame {
 		data.mass_after = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_AFTER);
 		data.mass_before = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_BEFORE);
 		calculate();
-		main.setHygroData();
+		main.setLODData();
 		setVisible(false);
 	}
 
 	private void calculate() {
-		percent_gain = 0;
+		percent_lost = 0;
 		for (int i = 0; i < table.getRowCount(); i++) {
-			percent_gain += (data.mass_after.get(i) - data.mass_before.get(i)) / data.mass_after.get(i);
+			percent_lost += (data.mass_before.get(i) - data.mass_after.get(i)) / data.mass_before.get(i);
 		}
-		percent_gain /= table.getRowCount();
-		percent_gain *= 100;
+		percent_lost /= table.getRowCount();
+		percent_lost *= 100;
 	}
 
-	public HygroData getData() {
+	public LODData getData() {
 		return data;
 	}
 	
-	public float getPercent_gain() {
-		return percent_gain;
+	public float getPercent_lost() {
+		return percent_lost;
 	}
 
-	public void setData(HygroData data) {
+	public void setData(LODData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
@@ -165,7 +165,7 @@ public class HygroInput extends JFrame {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			model.setRowCount(0);
-			percent_gain = 0;
+			percent_lost = 0;
 		}
 	}
 	

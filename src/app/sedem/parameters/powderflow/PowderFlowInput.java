@@ -1,4 +1,4 @@
-package app.sedem.lossondrying;
+package app.sedem.parameters.powderflow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,19 +20,22 @@ import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
-public class LODInput extends JFrame {
+public class PowderFlowInput extends JFrame {
 
 	private static final long serialVersionUID = 2105439747754898807L;
 	private JPanel contentPane;
-	private LODData data = new LODData();
+	private PowderFlowData data = new PowderFlowData();
 	private JTable table;
 	private DefaultTableModel model;
 	private MainFrame main;
-	private final int COL_NUM_MASS_AFTER = 1;
-	private final int COL_NUM_MASS_BEFORE = 0;
-	private float percent_lost;
+	private final int COL_NUM_TIME = 1;
+	private final int COL_NUM_MASS = 0;
+	private final int COL_NUM_CONE_HEIGHT = 2;
+	private final int COL_NUM_CONE_RADIUS = 3;
+	private float angle_of_response;
+	private float flowability;
 
-	public LODInput(MainFrame mainFrame) {
+	public PowderFlowInput(MainFrame mainFrame) {
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
 		main = mainFrame;
@@ -44,7 +47,7 @@ public class LODInput extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Loss on Drying Data");
+		JLabel lblNewLabel = new JLabel("Powder-Flow Data");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -59,7 +62,7 @@ public class LODInput extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Weight Initial (g)", "Weight After (g)"
+				"Weight (g)", "Time (s)", "Cone Height (mm)", "Cone Radius (mm)"
 			}
 		) {
 			private static final long serialVersionUID = 8002144398192845301L;
@@ -70,7 +73,11 @@ public class LODInput extends JFrame {
 				return columnTypes[columnIndex];
 			}
 		});
+		table.getColumnModel().getColumn(1).setPreferredWidth(60);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table.getColumnModel().getColumn(3).setPreferredWidth(102);
 		scrollPane.setViewportView(table);
+		
 		model = (DefaultTableModel) table.getModel();
 		
 		JPanel panel = new JPanel();
@@ -88,9 +95,7 @@ public class LODInput extends JFrame {
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int count = DataUtils.getDataAmount();
-				TableUtils.setDataCount((DefaultTableModel) table.getModel(), count);
-				data.dataSize = count;
+				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount());
 			}
 		});
 		
@@ -111,38 +116,49 @@ public class LODInput extends JFrame {
 		});
 		panel.add(btn_save);
 		
+		
 		pack();
 		setLocationRelativeTo(null);
 	}
 	
 	private void onSave() {
 		data.clear();
-		data.dataSize = table.getRowCount();
-		data.mass_after = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_AFTER);
-		data.mass_before = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_BEFORE);
+		data.time = TableUtils.getAllValuesInColumn(table, COL_NUM_TIME);
+		data.mass = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS);
+		data.cone_height = TableUtils.getAllValuesInColumn(table, COL_NUM_CONE_HEIGHT);
+		data.cone_radius = TableUtils.getAllValuesInColumn(table, COL_NUM_CONE_RADIUS);
+		data.dataSize = data.mass.size();
 		calculate();
-		main.setLODData();
+		main.setFlowData();
 		setVisible(false);
 	}
 
 	private void calculate() {
-		percent_lost = 0;
+		flowability = 0;
+		angle_of_response = 0;
 		for (int i = 0; i < table.getRowCount(); i++) {
-			percent_lost += (data.mass_before.get(i) - data.mass_after.get(i)) / data.mass_before.get(i);
+			flowability += data.time.get(i);
+			angle_of_response += Math.toDegrees( Math.atan(data.cone_height.get(i) / data.cone_radius.get(i)) );
+			//System.out.println(angle_of_response);
 		}
-		percent_lost /= table.getRowCount();
-		percent_lost *= 100;
+		flowability /= table.getRowCount();
+		angle_of_response /= table.getRowCount();
+		//System.out.println(flowability);
 	}
 
-	public LODData getData() {
+	public PowderFlowData getData() {
 		return data;
 	}
 	
-	public float getPercent_lost() {
-		return percent_lost;
+	public float getAngle_of_response() {
+		return angle_of_response;
 	}
-
-	public void setData(LODData data) {
+	
+	public float getFlowability() {
+		return flowability;
+	}
+	
+	public void setData(PowderFlowData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
@@ -153,8 +169,10 @@ public class LODInput extends JFrame {
 			return;
 		}
 		TableUtils.setDataCount(model, data.dataSize);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_AFTER, data.mass_after);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_BEFORE, data.mass_before);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS, data.mass);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_CONE_HEIGHT, data.cone_height);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_CONE_RADIUS, data.cone_radius);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_TIME, data.time);
 		calculate();
 	}
 	
@@ -165,7 +183,8 @@ public class LODInput extends JFrame {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			model.setRowCount(0);
-			percent_lost = 0;
+			flowability = 0;
+			angle_of_response = 0;
 		}
 	}
 	

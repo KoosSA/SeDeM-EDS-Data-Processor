@@ -21,8 +21,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import app.sedem.SeDeMData;
 import app.sedem.SeDeMParameters;
-import app.utils.SeDeMData;
 
 public class ComparisonFrameSelective extends JFrame {
 

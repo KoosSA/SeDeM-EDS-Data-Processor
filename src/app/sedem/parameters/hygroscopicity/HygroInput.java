@@ -1,4 +1,4 @@
-package app.sedem.cohesionIndex;
+package app.sedem.parameters.hygroscopicity;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,20 +17,22 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import app.graphical.MainFrame;
+import app.utils.DataUtils;
 import app.utils.TableUtils;
 
-public class CohesionIndexInput extends JFrame {
+public class HygroInput extends JFrame {
 
 	private static final long serialVersionUID = 2105439747754898807L;
 	private JPanel contentPane;
-	private CohesionIndexData data = new CohesionIndexData();
+	private HygroData data = new HygroData();
 	private JTable table;
 	private DefaultTableModel model;
 	private MainFrame main;
-	private final int COL_NUM_HARDNESS = 0;
-	private float cohesionIndex;
+	private final int COL_NUM_MASS_AFTER = 1;
+	private final int COL_NUM_MASS_BEFORE = 0;
+	private float percent_gain;
 
-	public CohesionIndexInput(MainFrame mainFrame) {
+	public HygroInput(MainFrame mainFrame) {
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
 		main = mainFrame;
@@ -42,7 +44,7 @@ public class CohesionIndexInput extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Cohesion Data");
+		JLabel lblNewLabel = new JLabel("Hygroscopicity Data");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -57,7 +59,7 @@ public class CohesionIndexInput extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Hardness (N)"
+				"Weight Initial (g)", "Weight After (g)"
 			}
 		) {
 			private static final long serialVersionUID = 8002144398192845301L;
@@ -69,7 +71,6 @@ public class CohesionIndexInput extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
-		
 		model = (DefaultTableModel) table.getModel();
 		
 		JPanel panel = new JPanel();
@@ -87,7 +88,9 @@ public class CohesionIndexInput extends JFrame {
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TableUtils.setDataCount((DefaultTableModel) table.getModel(), 10);
+				int count = DataUtils.getDataAmount();
+				TableUtils.setDataCount((DefaultTableModel) table.getModel(), count);
+				data.dataSize = count;
 			}
 		});
 		
@@ -108,35 +111,38 @@ public class CohesionIndexInput extends JFrame {
 		});
 		panel.add(btn_save);
 		
+		pack();
 		setLocationRelativeTo(null);
 	}
 	
 	private void onSave() {
 		data.clear();
-		data.hardness = TableUtils.getAllValuesInColumn(table, COL_NUM_HARDNESS);
-		data.dataSize = data.hardness.size();
+		data.dataSize = table.getRowCount();
+		data.mass_after = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_AFTER);
+		data.mass_before = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_BEFORE);
 		calculate();
-		main.setCohesionIndexData();
+		main.setHygroData();
 		setVisible(false);
 	}
 
 	private void calculate() {
-		cohesionIndex = 0;
+		percent_gain = 0;
 		for (int i = 0; i < table.getRowCount(); i++) {
-			cohesionIndex += data.hardness.get(i);
+			percent_gain += (data.mass_after.get(i) - data.mass_before.get(i)) / data.mass_after.get(i);
 		}
-		cohesionIndex /= table.getRowCount();
+		percent_gain /= table.getRowCount();
+		percent_gain *= 100;
 	}
 
-	public CohesionIndexData getData() {
+	public HygroData getData() {
 		return data;
 	}
 	
-	public float getCohesionIndex() {
-		return cohesionIndex;
+	public float getPercent_gain() {
+		return percent_gain;
 	}
-	
-	public void setData(CohesionIndexData data) {
+
+	public void setData(HygroData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
@@ -147,7 +153,8 @@ public class CohesionIndexInput extends JFrame {
 			return;
 		}
 		TableUtils.setDataCount(model, data.dataSize);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_HARDNESS, data.hardness);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_AFTER, data.mass_after);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_BEFORE, data.mass_before);
 		calculate();
 	}
 	
@@ -158,7 +165,7 @@ public class CohesionIndexInput extends JFrame {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			model.setRowCount(0);
-			cohesionIndex = 0;
+			percent_gain = 0;
 		}
 	}
 	

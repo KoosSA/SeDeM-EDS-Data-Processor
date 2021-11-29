@@ -1,4 +1,4 @@
-package app.sedem.homogeneity;
+package app.sedem.parameters.homogeneity;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

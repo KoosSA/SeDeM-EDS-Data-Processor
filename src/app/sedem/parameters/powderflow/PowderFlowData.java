@@ -1,4 +1,4 @@
-package app.sedem.powderflow;
+package app.sedem.parameters.powderflow;
 
 import java.util.List;
 

@@ -27,22 +27,22 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
+import app.sedem.SeDeMData;
 import app.sedem.SeDeMParameters;
-import app.sedem.cohesionIndex.CohesionIndexData;
-import app.sedem.cohesionIndex.CohesionIndexInput;
-import app.sedem.density.DensityData;
-import app.sedem.density.DensityInput;
-import app.sedem.homogeneity.HomogenityData;
-import app.sedem.homogeneity.HomogenityInput;
-import app.sedem.hygroscopicity.HygroData;
-import app.sedem.hygroscopicity.HygroInput;
-import app.sedem.lossondrying.LODData;
-import app.sedem.lossondrying.LODInput;
-import app.sedem.powderflow.PowderFlowData;
-import app.sedem.powderflow.PowderFlowInput;
+import app.sedem.parameters.cohesionIndex.CohesionIndexData;
+import app.sedem.parameters.cohesionIndex.CohesionIndexInput;
+import app.sedem.parameters.density.DensityData;
+import app.sedem.parameters.density.DensityInput;
+import app.sedem.parameters.homogeneity.HomogenityData;
+import app.sedem.parameters.homogeneity.HomogenityInput;
+import app.sedem.parameters.hygroscopicity.HygroData;
+import app.sedem.parameters.hygroscopicity.HygroInput;
+import app.sedem.parameters.lossondrying.LODData;
+import app.sedem.parameters.lossondrying.LODInput;
+import app.sedem.parameters.powderflow.PowderFlowData;
+import app.sedem.parameters.powderflow.PowderFlowInput;
 import app.utils.FileUtil;
 import app.utils.ProjectData;
-import app.utils.SeDeMData;
 import app.utils.TableUtils;
 
 public class MainFrame extends JFrame {
