@@ -20,9 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -274,16 +272,15 @@ public class MainFrame extends JFrame {
 	
 	private JScrollPane addDataTab(String name){
 		data.putIfAbsent(name, new SeDeMData());
-		JScrollPane scrollPane_main = new JScrollPane();
-		scrollPane_main.setName(name);
-		JPanel panel_main = new JPanel();
-		panel_main.setBackground(Color.LIGHT_GRAY);
-		scrollPane_main.setViewportView(panel_main);
-		panel_main.setLayout(new BoxLayout(panel_main, BoxLayout.Y_AXIS));
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setName(name);
+		JPanel panel_tab = new JPanel();
+		panel_tab.setName(name);
+		panel_tab.setBackground(Color.LIGHT_GRAY);
+		panel_tab.setLayout(new BoxLayout(panel_tab, BoxLayout.Y_AXIS));
 		
-		JScrollPane scrollPane_parameters = new JScrollPane();
-		scrollPane_parameters.setAlignmentY(Component.TOP_ALIGNMENT);
-		scrollPane_parameters.setViewportBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		JPanel table_panel = new JPanel();
+		table_panel.setLayout(new BorderLayout());
 		
 		JTable table_parameters = new JTable();
 		table_parameters_list.putIfAbsent(name, table_parameters);
@@ -323,8 +320,10 @@ public class MainFrame extends JFrame {
 		});
 		table_parameters.getColumnModel().getColumn(0).setPreferredWidth(111);
 		table_parameters.getColumnModel().getColumn(1).setPreferredWidth(40);
-		scrollPane_parameters.setViewportView(table_parameters);
-		panel_main.add(scrollPane_parameters);
+		
+		table_panel.add(table_parameters, BorderLayout.CENTER);
+		table_panel.add(table_parameters.getTableHeader(), BorderLayout.NORTH);
+		panel_tab.add(table_panel);
 		
 		JPanel panel_chart = new JPanel();
 		panel_chart.add(SeDeMPolygon.createChartPanel(TableUtils.getAllValuesInColumn(table_parameters, COL_NUM_PARAM_TABLE_GRAPH_VALUE), name));
@@ -333,12 +332,12 @@ public class MainFrame extends JFrame {
 			public void tableChanged(TableModelEvent e) {
 				panel_chart.remove(0);
 				panel_chart.add(SeDeMPolygon.createChartPanel(TableUtils.getAllValuesInColumn(table_parameters, COL_NUM_PARAM_TABLE_GRAPH_VALUE), name));
-				
 			}
 		});
-		panel_main.add(panel_chart);
+		panel_tab.add(panel_chart);
 		
-		return scrollPane_main;
+		scrollPane.setViewportView(panel_tab);
+		return scrollPane;
 	}
 	
 	public void setHomogenityData() {
