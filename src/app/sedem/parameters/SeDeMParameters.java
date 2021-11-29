@@ -1,4 +1,4 @@
-package app.sedem;
+package app.sedem.parameters;
 
 public enum SeDeMParameters {
 	

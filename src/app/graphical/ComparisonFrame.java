@@ -17,7 +17,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import app.sedem.SeDeMData;
-import app.sedem.SeDeMParameters;
+import app.sedem.parameters.SeDeMParameters;
 
 @Deprecated
 public class ComparisonFrame extends JFrame {

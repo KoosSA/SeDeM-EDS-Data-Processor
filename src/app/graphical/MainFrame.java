@@ -28,7 +28,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import app.sedem.SeDeMData;
-import app.sedem.SeDeMParameters;
+import app.sedem.parameters.SeDeMParameters;
 import app.sedem.parameters.cohesionIndex.CohesionIndexData;
 import app.sedem.parameters.cohesionIndex.CohesionIndexInput;
 import app.sedem.parameters.density.DensityData;
