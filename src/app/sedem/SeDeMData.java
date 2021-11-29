@@ -29,5 +29,15 @@ public class SeDeMData {
 	public float particlesSmallerThan45um;
 	public float hygroscopicity;
 	
+	public float dimension_index;
+	public float compressibility_index;
+	public float flowability_index;
+	public float lubricity_stability_index;
+	public float lubricity_dasage_index;
+	
+	public float IP;
+	public float IPP;
+	public float IGC;
+	
 
 }
