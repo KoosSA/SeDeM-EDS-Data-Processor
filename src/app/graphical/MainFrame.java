@@ -107,19 +107,6 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_Comparison = new JMenuItem("New Comparison");
-		mntmNewMenuItem_Comparison.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//String name = JOptionPane.showInputDialog("Enter name for new comparison:");
-				//if (name != null && name.length() > 0) {
-					
-				//}
-				//comp.setVisible(true);
-				new ComparisonFrameSelective("Data Comparison", instance);
-			}
-		});
-		mnNewMenu.add(mntmNewMenuItem_Comparison);
-		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open Existing");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -260,9 +247,24 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_11);
 		
+		JMenu mnNewMenu_utilities = new JMenu("Utilities");
+		menuBar.add(mnNewMenu_utilities);
 		
-		JMenuBar menuBar_1 = new JMenuBar();
-		menuBar.add(menuBar_1);
+		JMenuItem mntmNewMenuItem_Comparison = new JMenuItem("Comparison");
+		mnNewMenu_utilities.add(mntmNewMenuItem_Comparison);
+		mntmNewMenuItem_Comparison.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//String name = JOptionPane.showInputDialog("Enter name for new comparison:");
+				//if (name != null && name.length() > 0) {
+					
+				//}
+				//comp.setVisible(true);
+				new ComparisonFrameSelective("Data Comparison", instance);
+			}
+		});
+		
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
