@@ -47,7 +47,8 @@ For any sugestions, bugs or feedback, please file a issue at the issue tab of th
 
 **Screenshots:**
 
-
+![Substance tab](https://github.com/KoosSA/SeDeM-EDS-Data-Processor/blob/master/github_assets/tab_example.png)
+![Selective comparison window](https://github.com/KoosSA/SeDeM-EDS-Data-Processor/blob/master/github_assets/comparison.png)
 
 
 
