@@ -31,8 +31,10 @@ public class HygroInput extends JFrame {
 	private final int COL_NUM_MASS_AFTER = 1;
 	private final int COL_NUM_MASS_BEFORE = 0;
 	private float percent_gain;
+	private HygroInput instance;
 
 	public HygroInput(MainFrame mainFrame) {
+		instance = this;
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
 		main = mainFrame;
@@ -88,7 +90,7 @@ public class HygroInput extends JFrame {
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int count = DataUtils.getDataAmount();
+				int count = DataUtils.getDataAmount(instance);
 				TableUtils.setDataCount((DefaultTableModel) table.getModel(), count);
 				data.dataSize = count;
 			}
@@ -113,6 +115,8 @@ public class HygroInput extends JFrame {
 		
 		pack();
 		setLocationRelativeTo(null);
+		
+		setAlwaysOnTop(true);
 	}
 	
 	private void onSave() {

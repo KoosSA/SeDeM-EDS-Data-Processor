@@ -33,8 +33,10 @@ public class DensityInput extends JFrame {
 	private final int COL_NUM_MASS = 0;
 	private float tappedDensity;
 	private float bulkDensity;
+	private DensityInput instance;
 
 	public DensityInput(MainFrame mainFrame) {
+		instance = this;
 		setType(Type.UTILITY);
 		main = mainFrame;
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -87,7 +89,7 @@ public class DensityInput extends JFrame {
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount());
+				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount(instance));
 			}
 		});
 		
@@ -109,6 +111,7 @@ public class DensityInput extends JFrame {
 		panel.add(btn_save);
 		
 		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
 	}
 	
 	private void onSave() {

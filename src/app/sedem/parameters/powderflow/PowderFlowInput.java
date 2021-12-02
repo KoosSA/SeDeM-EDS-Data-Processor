@@ -34,8 +34,10 @@ public class PowderFlowInput extends JFrame {
 	private final int COL_NUM_CONE_RADIUS = 3;
 	private float angle_of_response;
 	private float flowability;
+	private PowderFlowInput instance;
 
 	public PowderFlowInput(MainFrame mainFrame) {
+		instance = this;
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
 		main = mainFrame;
@@ -95,7 +97,7 @@ public class PowderFlowInput extends JFrame {
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount());
+				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount(instance));
 			}
 		});
 		
@@ -119,6 +121,7 @@ public class PowderFlowInput extends JFrame {
 		
 		pack();
 		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
 	}
 	
 	private void onSave() {
