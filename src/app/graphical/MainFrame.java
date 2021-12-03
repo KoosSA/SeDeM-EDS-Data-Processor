@@ -55,7 +55,7 @@ public class MainFrame extends JFrame {
 	private Map<String, JTable> table_parameters_list = new HashMap<String, JTable>();
 	private Map<String, JTable> table_indices_list = new HashMap<String, JTable>();
 	private JTabbedPane tabs = new JTabbedPane();
-	private MainFrame instance;
+	private static MainFrame instance;
 	
 	public static final int COL_NUM_PARAM_TABLE_GRAPH_VALUE = 4;
 	public static final int COL_NUM_PARAM_TABLE_PROCESSED_VALUE = 3;
@@ -553,8 +553,8 @@ public class MainFrame extends JFrame {
 		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 	}
 
-	public Map<String, SeDeMData> getProjectData() {
-		return data;
+	public static Map<String, SeDeMData> getProjectData() {
+		return instance.data;
 	}
 	
 	public JTabbedPane getTabs() {

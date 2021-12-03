@@ -2,6 +2,7 @@ package app.graphical;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import app.sedem.parameters.SeDeMParameters;
+import app.utils.GraphData;
 
 public class SeDeMPolygon {
 	
@@ -76,6 +78,51 @@ public class SeDeMPolygon {
         	for (int j = 0; j < SeDeMParameters.values().length; j++) {
         		Comparable<?> colKey = SeDeMParameters.values()[j];
         		dataset.addValue(data.get(name).get(j), name, colKey);
+        	}
+        });
+        
+        return dataset;
+    }
+    
+    
+    
+    
+    
+    
+    public static JPanel createChartPanel(String chartName, Map<String, GraphData> data) {
+        JFreeChart jfreechart = createChart(chartName, data);
+        return new ChartPanel(jfreechart);
+    }
+    
+    private static JFreeChart createChart(String title, Map<String, GraphData> data) {
+        SpiderWebPlot plot = new SpiderWebPlot(createDatasetG(data));
+        plot.setMaxValue(10);
+        plot.setBaseSeriesOutlineStroke(new BasicStroke(2));
+        plot.setWebFilled(true);
+        plot.setSeriesPaint(0, Color.BLACK);
+        plot.setSeriesOutlineStroke(0, new BasicStroke(1));
+        List<Color> colors = new ArrayList<>();
+        data.keySet().forEach(name -> {
+        	colors.add(data.get(name).getColor());
+        });
+        for (int i = 0; i < colors.size(); i++) {
+        	plot.setSeriesPaint(i + 1, colors.get(i));
+        }
+        JFreeChart chart = new JFreeChart("SeDeM Graph: " + title, plot);
+        
+        return chart;
+    }
+    
+    private static CategoryDataset createDatasetG(Map<String, GraphData> data) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (int j = 0; j < SeDeMParameters.values().length; j++) {
+    		Comparable<?> colKey = SeDeMParameters.values()[j];
+    		dataset.addValue(5, "Passing line", colKey);
+    	}
+        data.keySet().forEach(name -> {
+        	for (int j = 0; j < SeDeMParameters.values().length; j++) {
+        		Comparable<?> colKey = SeDeMParameters.values()[j];
+        		dataset.addValue(data.get(name).getData().get(j), name, colKey);
         	}
         });
         
