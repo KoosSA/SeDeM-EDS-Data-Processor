@@ -215,7 +215,7 @@ public class LODInput extends JFrame {
 	private void clearAllData(boolean skip) {
 		int result = JOptionPane.YES_OPTION;
 		if (!skip) {
-			result = JOptionPane.showConfirmDialog(null, "To continue, all data will be cleared.");
+			result = JOptionPane.showConfirmDialog(instance, "To continue, all data will be cleared.");
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			model.setRowCount(0);

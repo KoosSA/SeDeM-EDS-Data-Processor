@@ -89,7 +89,7 @@ public class MainFrame extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				if (JOptionPane.showOptionDialog(null, "Do you really want to quit? All unsaved data will be lost.", "Confirm Quit", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null) == JOptionPane.YES_OPTION) {
+				if (JOptionPane.showOptionDialog(instance, "Do you really want to quit? All unsaved data will be lost.", "Confirm Quit", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null) == JOptionPane.YES_OPTION) {
 					dispose();
 					System.exit(0);
 				}
@@ -99,7 +99,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("New Data Tab");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = JOptionPane.showInputDialog("Enter name for new data:");
+				String name = JOptionPane.showInputDialog(instance, "Enter name for new data:");
 				if (name != null && name.length() > 0) {
 					tabs.add(name, addDataTab(name));
 				}
@@ -140,7 +140,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String name = tabs.getSelectedComponent().getName();
-					if (JOptionPane.showConfirmDialog(null, "Delete: " + name) == JOptionPane.OK_OPTION) {
+					if (JOptionPane.showConfirmDialog(instance, "Delete: " + name) == JOptionPane.OK_OPTION) {
 						tabs.remove(tabs.getSelectedComponent());
 						data.remove(name);
 					}
