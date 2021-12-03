@@ -110,14 +110,16 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open Existing");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data = FileUtil.openFile(ProjectData.class).data;
-				data.keySet().forEach(key -> {
-					//System.out.println(data.get(key).hygroscopicity);
-					Component c = addDataTab(key);
-					tabs.add(c);
-					tabs.setSelectedComponent(c);
-					doCalcs();
-				});
+				ProjectData pd = FileUtil.openFile(ProjectData.class);
+				if (pd != null) {
+					data = pd.data;
+					data.keySet().forEach(key -> {
+						Component c = addDataTab(key);
+						tabs.add(c);
+						tabs.setSelectedComponent(c);
+						doCalcs();
+					});
+				}
 			}
 
 		});
