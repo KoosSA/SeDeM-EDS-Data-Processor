@@ -110,7 +110,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open Existing");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ProjectData pd = FileUtil.openFile(ProjectData.class);
+				ProjectData pd = FileUtil.openFile(instance, ProjectData.class);
 				if (pd != null) {
 					data = pd.data;
 					data.keySet().forEach(key -> {
@@ -130,7 +130,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ProjectData d = new ProjectData();
 				d.data = data;
-				FileUtil.saveFile(d);
+				FileUtil.saveFile(instance, d);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);

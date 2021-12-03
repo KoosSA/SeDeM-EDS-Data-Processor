@@ -146,14 +146,14 @@ public class HomogenityInput extends JFrame {
 				template.RANGES_UPPER = TableUtils.getAllValuesInColumn(table, COL_NUM_RANGE_HIGH);
 				template.RANGES_LOWER = TableUtils.getAllValuesInColumn(table, COL_NUM_RANGE_LOW);
 				template.RANGES_MEAN = TableUtils.getAllValuesInColumn(table, COL_NUM_RANGE_MEAN);
-				FileUtil.saveFile(template);
+				FileUtil.saveFile(instance, template);
 				log("Template saved.");
 			}
 		});
 		
 		btn_loadTemplate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HomogenityTemplate template = FileUtil.openFile(HomogenityTemplate.class);
+				HomogenityTemplate template = FileUtil.openFile(instance, HomogenityTemplate.class);
 				if (template == null) {
 					return;
 				}

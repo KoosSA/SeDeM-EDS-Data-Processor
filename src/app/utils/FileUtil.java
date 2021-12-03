@@ -1,5 +1,6 @@
 package app.utils;
 
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,13 +18,13 @@ public class FileUtil {
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	private static FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("Json (*.json)", "json");
 	
-	public static void saveFile(Object obj) {
+	public static void saveFile(Component parent, Object obj) {
 		JFileChooser fc = new JFileChooser();
 		String data = gson.toJson(obj);
         fc.addChoosableFileFilter(jsonFilter);
         fc.setFileFilter(jsonFilter);
         //fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+		if (fc.showSaveDialog(parent) == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			if(!file.getName().contains(".")) {
 				file = new File(file.toString() + ".json");
@@ -38,12 +39,12 @@ public class FileUtil {
 		}
 	}
 	
-	public static <T> T openFile(Class<T> type) {
+	public static <T> T openFile(Component parent, Class<T> type) {
 		JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fc.addChoosableFileFilter(jsonFilter);
         fc.setFileFilter(jsonFilter);
-        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        if (fc.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			if(!file.getName().endsWith(".json")) {
 				System.err.println("FileType error.");
