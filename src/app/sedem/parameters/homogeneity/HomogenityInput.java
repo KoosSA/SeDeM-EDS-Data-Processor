@@ -220,6 +220,7 @@ public class HomogenityInput extends JFrame {
 			}
 		});**/
 		
+		setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
 		pack();
 

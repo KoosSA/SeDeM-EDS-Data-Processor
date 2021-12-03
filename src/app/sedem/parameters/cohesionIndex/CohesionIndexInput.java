@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import app.graphical.MainFrame;
+import app.utils.DataUtils;
 import app.utils.TableUtils;
 
 public class CohesionIndexInput extends JFrame {
@@ -27,10 +28,12 @@ public class CohesionIndexInput extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private MainFrame main;
+	private CohesionIndexInput instance;
 	private final int COL_NUM_HARDNESS = 0;
 	private float cohesionIndex;
 
 	public CohesionIndexInput(MainFrame mainFrame) {
+		instance = this;
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
 		main = mainFrame;
@@ -87,7 +90,7 @@ public class CohesionIndexInput extends JFrame {
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TableUtils.setDataCount((DefaultTableModel) table.getModel(), 10);
+				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount(instance));
 			}
 		});
 		
@@ -109,6 +112,7 @@ public class CohesionIndexInput extends JFrame {
 		panel.add(btn_save);
 		
 		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
 	}
 	
 	private void onSave() {
