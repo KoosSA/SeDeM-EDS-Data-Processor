@@ -23,7 +23,7 @@ import app.sedem.parameters.SeDeMParameters;
 public class ComparisonFrame extends JFrame {
 
 	private static final long serialVersionUID = 2909389028655044044L;
-	private MainFrame main;
+	//private MainFrame main;
 	private JTabbedPane tabs;
 	private Map<String, List<Float>> grd = new HashMap<String, List<Float>>();
 	private JPanel panel = new JPanel();
@@ -31,7 +31,7 @@ public class ComparisonFrame extends JFrame {
 	public ComparisonFrame(String name, MainFrame main) {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		setTitle(name);
-		this.main = main;
+		//this.main = main;
 		tabs = main.getTabs();
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, Color.GRAY, null, Color.BLACK));
@@ -62,7 +62,7 @@ public class ComparisonFrame extends JFrame {
 	}
 	
 	private void update() {
-		Map<String, SeDeMData> data = main.getProjectData();
+		Map<String, SeDeMData> data = MainFrame.getProjectData();
 		grd.clear();
 		for (int i = 0; i < tabs.getComponentCount(); i++) {
 			String name = tabs.getComponent(i).getName();
