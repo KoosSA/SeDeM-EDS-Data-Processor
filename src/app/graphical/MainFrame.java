@@ -265,6 +265,14 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
+		JMenuItem mntmNewMenuItem_Corrective_Excipient = new JMenuItem("Corrective Excipient Calculation");
+		mnNewMenu_utilities.add(mntmNewMenuItem_Corrective_Excipient);
+		mntmNewMenuItem_Corrective_Excipient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CorrectiveExcipientFrame("Corrective Excipient Calculation", instance);
+			}
+		});
+		
 		
 		
 		contentPane = new JPanel();
@@ -326,6 +334,12 @@ public class MainFrame extends JFrame {
 		indexTable.setValueAt(Calculator.calculateFlowabilityIndex(processedParameters), 2, 2);
 		indexTable.setValueAt(Calculator.calculateLubricityStabilityIndex(processedParameters), 3, 2);
 		indexTable.setValueAt(Calculator.calculateLubricityDosageIndex(processedParameters), 4, 2);
+		
+		data.get(name).dimension_index = Calculator.calculateDimensionIndex(processedParameters);
+		data.get(name).compressibility_index = Calculator.calculateCompresibilityIndex(processedParameters);
+		data.get(name).flowability_index = Calculator.calculateFlowabilityIndex(processedParameters);
+		data.get(name).lubricity_dasage_index = Calculator.calculateLubricityDosageIndex(processedParameters);
+		data.get(name).lubricity_stability_index = Calculator.calculateLubricityStabilityIndex(processedParameters);
 		
 		indexTable.setValueAt(Calculator.calculateIP(processedParameters), 5, 2);
 		indexTable.setValueAt(Calculator.calculateIPP(processedParameters), 6, 2);
