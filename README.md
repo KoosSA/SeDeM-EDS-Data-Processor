@@ -43,12 +43,15 @@ For any sugestions, bugs or feedback, please file a issue at the issue tab of th
 - Calculation of data from specific inputs.
 - Calculation of SeDeM processed values from data.
 - Saving and loading of projects as .json files.
+- Calculating corrective excipient percentages.
+- Saving the calculation of corrective excipients as an image.
 
 
 **Screenshots:**
 
 ![Substance tab](https://github.com/KoosSA/SeDeM-EDS-Data-Processor/blob/master/github_assets/tab_example.png)
 ![Selective comparison window](https://github.com/KoosSA/SeDeM-EDS-Data-Processor/blob/master/github_assets/comparison.png)
+![Corrective excipient window](https://github.com/KoosSA/SeDeM-EDS-Data-Processor/blob/master/github_assets/ce-example.png.png)
 
 
 
