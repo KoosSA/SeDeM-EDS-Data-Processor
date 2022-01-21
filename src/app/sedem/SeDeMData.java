@@ -1,5 +1,6 @@
 package app.sedem;
 
+import app.sedem.parameters.SeDeMIndices;
 import app.sedem.parameters.cohesionIndex.CohesionIndexData;
 import app.sedem.parameters.density.DensityData;
 import app.sedem.parameters.homogeneity.HomogenityData;
@@ -39,5 +40,20 @@ public class SeDeMData {
 	public float IPP;
 	public float IGC;
 	
-
+	public float getIndexValue(SeDeMIndices index) {
+		switch (index) {
+		case Dimention:
+			return dimension_index;
+		case Compressibility:
+			return compressibility_index;
+		case Flowability:
+			return flowability_index;
+		case Lubricity_Dosage:
+			return lubricity_dasage_index;
+		case Lubricity_Stability:
+			return lubricity_stability_index;
+		default:
+			return 10;
+		}
+	}
 }
