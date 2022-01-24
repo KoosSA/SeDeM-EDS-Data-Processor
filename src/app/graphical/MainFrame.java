@@ -507,64 +507,64 @@ public class MainFrame extends JFrame {
 		
 		table_parameters.setValueAt(d.bulkDensity, SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.bulkDensity * 10;
-		table_parameters.setValueAt(processed, SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		
 		table_parameters.setValueAt(d.tappedDensity, SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.tappedDensity * 10;
-		table_parameters.setValueAt(processed, SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 	
 		table_parameters.setValueAt(d.homogeneityIndex, SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.homogeneityIndex * 500;
-		table_parameters.setValueAt(processed, SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		processed = 0;
 		
 		table_parameters.setValueAt(d.hausnerRatio, SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (10 * d.hausnerRatio) / 3;
-		table_parameters.setValueAt(processed, SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 	
 		table_parameters.setValueAt(d.carrIndex, SeDeMParameters.Carrs_Index.ordinal(), 2);
 		processed = d.carrIndex / 5;
-		table_parameters.setValueAt(processed, SeDeMParameters.Carrs_Index.ordinal(), 3);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Carrs_Index.ordinal(), 4);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Carrs_Index.ordinal(), 3);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Carrs_Index.ordinal(), 4);
 	
 		table_parameters.setValueAt(d.angleOfResponse, SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - ( d.angleOfResponse / 5 );
-		table_parameters.setValueAt(processed, SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		
 		table_parameters.setValueAt(d.cohesionIndex, SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.cohesionIndex / 20;
-		table_parameters.setValueAt(processed, SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		
 		table_parameters.setValueAt(d.hygroscopicity, SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (d.hygroscopicity / 2);
-		table_parameters.setValueAt(processed, SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		
 		table_parameters.setValueAt(d.interParticlePorosity, SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = (d.interParticlePorosity * 10) / 1.2f;
-		table_parameters.setValueAt(processed, SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		
 		table_parameters.setValueAt(d.lossOnDrying, SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - d.lossOnDrying;
-		table_parameters.setValueAt(processed, SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		
 		table_parameters.setValueAt(d.powderFlow, SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (d.powderFlow / 2);
-		table_parameters.setValueAt(processed, SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		
 		table_parameters.setValueAt(d.particlesSmallerThan45um, SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (d.particlesSmallerThan45um / 5);
-		table_parameters.setValueAt(processed, SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.min(10, processed), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 	}
 
 	public static Map<String, SeDeMData> getProjectData() {
