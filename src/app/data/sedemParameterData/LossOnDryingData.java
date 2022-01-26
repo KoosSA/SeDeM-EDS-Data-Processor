@@ -1,13 +1,13 @@
-package app.sedem.parameters.hygroscopicity;
+package app.data.sedemParameterData;
 
 import java.util.List;
 
-public class HygroData {
+public class LossOnDryingData {
 	
 	public List<Float> mass_before;
 	public List<Float> mass_after;
-	public List<Float> mass_container;
 	public int dataSize;
+	public List<Float> mass_container;
 	
 	public void clear() {
 		try {

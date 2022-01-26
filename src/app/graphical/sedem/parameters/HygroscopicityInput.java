@@ -1,9 +1,11 @@
-package app.sedem.parameters.powderflow;
+package app.graphical.sedem.parameters;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,27 +18,34 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import app.data.sedemParameterData.HygroscopicityData;
 import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
-public class PowderFlowInput extends JFrame {
+public class HygroscopicityInput extends JFrame {
 
 	private static final long serialVersionUID = 2105439747754898807L;
 	private JPanel contentPane;
-	private PowderFlowData data = new PowderFlowData();
+	private HygroscopicityData data = new HygroscopicityData();
 	private JTable table;
 	private DefaultTableModel model;
 	private MainFrame main;
-	private final int COL_NUM_TIME = 1;
-	private final int COL_NUM_MASS = 0;
-	private final int COL_NUM_CONE_HEIGHT = 2;
-	private final int COL_NUM_CONE_RADIUS = 3;
-	private float angle_of_response;
-	private float flowability;
-	private PowderFlowInput instance;
+	private final int COL_NUM_MASS_CONTAINER = 0;
+	private final int COL_NUM_MASS_BEFORE = 1;
+	private final int COL_NUM_MASS_AFTER = 2;
+	private final int COL_NUM_MASS_POWDER_BEFORE = 3;
+	private final int COL_NUM_MASS_POWDER_AFTER = 4;
+	private final int COL_NUM_MASS_DELTA = 5;
+	private final int COL_NUM_PERCENTAGE_GAIN = 6;
+	private float percent_gain;
+	private HygroscopicityInput instance;
+	private List<Float> mi = new ArrayList<Float>();
+	private List<Float> mf = new ArrayList<Float>();
+	private List<Float> dm = new ArrayList<Float>();
+	private List<Float> pl = new ArrayList<Float>();
 
-	public PowderFlowInput(MainFrame mainFrame) {
+	public HygroscopicityInput(MainFrame mainFrame) {
 		instance = this;
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
@@ -49,7 +58,7 @@ public class PowderFlowInput extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Powder-Flow Data");
+		JLabel lblNewLabel = new JLabel("Hygroscopicity Data");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -64,22 +73,24 @@ public class PowderFlowInput extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Weight (g)", "Time (s)", "Cone Height (mm)", "Cone Radius (mm)"
+				"Weight Container (g)", "Container & Substance Initial Mass (g)", "Container & Substance Final Mass (g)", "Substance Initial Mass (g)", "Substance Final Mass (g)", "Delta Mass (g)", "% Gain (%)"
 			}
 		) {
 			private static final long serialVersionUID = 8002144398192845301L;
 			Class<?>[] columnTypes = new Class[] {
-				Float.class, Float.class, Float.class, Float.class
+				Float.class, Float.class, Float.class, Float.class, Float.class, Float.class, Float.class
 			};
 			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			boolean[] columnEditables = new boolean[] {
+				true, true, true, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
 		});
-		table.getColumnModel().getColumn(1).setPreferredWidth(60);
-		table.getColumnModel().getColumn(2).setPreferredWidth(100);
-		table.getColumnModel().getColumn(3).setPreferredWidth(102);
 		scrollPane.setViewportView(table);
-		
 		model = (DefaultTableModel) table.getModel();
 		
 		JPanel panel = new JPanel();
@@ -97,7 +108,9 @@ public class PowderFlowInput extends JFrame {
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount(instance));
+				int count = DataUtils.getDataAmount(instance);
+				TableUtils.setDataCount((DefaultTableModel) table.getModel(), count);
+				data.dataSize = count;
 			}
 		});
 		
@@ -110,6 +123,14 @@ public class PowderFlowInput extends JFrame {
 		panel.add(btnNewButton);
 		panel.add(btn_addData);
 		
+		JButton btn_calc = new JButton("Calculate");
+		btn_calc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				calculate();
+			}
+		});
+		panel.add(btn_calc);
+		
 		JButton btn_save = new JButton("Save");
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,50 +139,57 @@ public class PowderFlowInput extends JFrame {
 		});
 		panel.add(btn_save);
 		
-		
 		pack();
 		setLocationRelativeTo(null);
+		
 		setAlwaysOnTop(true);
 	}
 	
 	private void onSave() {
 		data.clear();
-		data.time = TableUtils.getAllValuesInColumn(table, COL_NUM_TIME);
-		data.mass = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS);
-		data.cone_height = TableUtils.getAllValuesInColumn(table, COL_NUM_CONE_HEIGHT);
-		data.cone_radius = TableUtils.getAllValuesInColumn(table, COL_NUM_CONE_RADIUS);
-		data.dataSize = data.mass.size();
+		data.dataSize = table.getRowCount();
+		data.mass_after = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_AFTER);
+		data.mass_before = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_BEFORE);
+		data.mass_container = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_CONTAINER);
 		calculate();
-		main.setFlowData();
+		main.setHygroData();
 		setVisible(false);
 	}
 
 	private void calculate() {
-		flowability = 0;
-		angle_of_response = 0;
-		for (int i = 0; i < table.getRowCount(); i++) {
-			flowability += data.time.get(i);
-			angle_of_response += Math.toDegrees( Math.atan(data.cone_height.get(i) / data.cone_radius.get(i)) );
-			//System.out.println(angle_of_response);
-		}
-		flowability /= table.getRowCount();
-		angle_of_response /= table.getRowCount();
-		//System.out.println(flowability);
+		percent_gain = 0;
+		try {
+			List<Float> mp = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_CONTAINER);
+			List<Float> mic = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_BEFORE);
+			List<Float> mfc = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_AFTER);
+			mi.clear();
+			mf.clear();
+			dm.clear();
+			pl.clear();
+			for (int i = 0; i < table.getRowCount(); i++) {
+				mi.add(mic.get(i) - mp.get(i));
+				mf.add(mfc.get(i) - mp.get(i));
+				dm.add(mf.get(i) - mi.get(i));
+				pl.add(dm.get(i) / mi.get(i) * 100);
+				percent_gain += pl.get(i);
+			}
+			percent_gain /= table.getRowCount();
+			TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_POWDER_BEFORE, mi);
+			TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_POWDER_AFTER, mf);
+			TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_DELTA, dm);
+			TableUtils.setAllValuesInColumn(table, COL_NUM_PERCENTAGE_GAIN, pl);
+		} catch (Exception e) {}
 	}
 
-	public PowderFlowData getData() {
+	public HygroscopicityData getData() {
 		return data;
 	}
 	
-	public float getAngle_of_response() {
-		return angle_of_response;
+	public float getPercent_gain() {
+		return percent_gain;
 	}
-	
-	public float getFlowability() {
-		return flowability;
-	}
-	
-	public void setData(PowderFlowData data) {
+
+	public void setData(HygroscopicityData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
@@ -172,10 +200,9 @@ public class PowderFlowInput extends JFrame {
 			return;
 		}
 		TableUtils.setDataCount(model, data.dataSize);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS, data.mass);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_CONE_HEIGHT, data.cone_height);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_CONE_RADIUS, data.cone_radius);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_TIME, data.time);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_AFTER, data.mass_after);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_BEFORE, data.mass_before);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_CONTAINER, data.mass_container);
 		calculate();
 	}
 	
@@ -186,8 +213,7 @@ public class PowderFlowInput extends JFrame {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			model.setRowCount(0);
-			flowability = 0;
-			angle_of_response = 0;
+			percent_gain = 0;
 		}
 	}
 	

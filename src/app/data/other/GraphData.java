@@ -1,12 +1,12 @@
-package app.utils;
+package app.data.other;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.data.SeDeMData;
+import app.data.lists.SeDeMParameters;
 import app.graphical.MainFrame;
-import app.sedem.SeDeMData;
-import app.sedem.parameters.SeDeMParameters;
 
 public class GraphData {
 	

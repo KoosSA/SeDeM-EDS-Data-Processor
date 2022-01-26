@@ -1,4 +1,4 @@
-package app.sedem.parameters.homogeneity;
+package app.graphical.sedem.parameters;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,6 +20,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
 
+import app.data.other.HomogenityTemplate;
+import app.data.sedemParameterData.HomogenityData;
 import app.graphical.MainFrame;
 import app.utils.FileUtil;
 import app.utils.TableUtils;

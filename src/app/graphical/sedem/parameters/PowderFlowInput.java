@@ -1,4 +1,4 @@
-package app.sedem.parameters.cohesionIndex;
+package app.graphical.sedem.parameters;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,23 +16,28 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import app.data.sedemParameterData.PowderFlowData;
 import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
-public class CohesionIndexInput extends JFrame {
+public class PowderFlowInput extends JFrame {
 
 	private static final long serialVersionUID = 2105439747754898807L;
 	private JPanel contentPane;
-	private CohesionIndexData data = new CohesionIndexData();
+	private PowderFlowData data = new PowderFlowData();
 	private JTable table;
 	private DefaultTableModel model;
 	private MainFrame main;
-	private CohesionIndexInput instance;
-	private final int COL_NUM_HARDNESS = 0;
-	private float cohesionIndex;
+	private final int COL_NUM_TIME = 1;
+	private final int COL_NUM_MASS = 0;
+	private final int COL_NUM_CONE_HEIGHT = 2;
+	private final int COL_NUM_CONE_RADIUS = 3;
+	private float angle_of_response;
+	private float flowability;
+	private PowderFlowInput instance;
 
-	public CohesionIndexInput(MainFrame mainFrame) {
+	public PowderFlowInput(MainFrame mainFrame) {
 		instance = this;
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
@@ -45,7 +50,7 @@ public class CohesionIndexInput extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Cohesion Data");
+		JLabel lblNewLabel = new JLabel("Powder-Flow Data");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -60,7 +65,7 @@ public class CohesionIndexInput extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Hardness (N)"
+				"Weight (g)", "Time (s)", "Cone Height (mm)", "Cone Radius (mm)"
 			}
 		) {
 			private static final long serialVersionUID = 8002144398192845301L;
@@ -71,6 +76,9 @@ public class CohesionIndexInput extends JFrame {
 				return columnTypes[columnIndex];
 			}
 		});
+		table.getColumnModel().getColumn(1).setPreferredWidth(60);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table.getColumnModel().getColumn(3).setPreferredWidth(102);
 		scrollPane.setViewportView(table);
 		
 		model = (DefaultTableModel) table.getModel();
@@ -111,36 +119,50 @@ public class CohesionIndexInput extends JFrame {
 		});
 		panel.add(btn_save);
 		
+		
+		pack();
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
 	}
 	
 	private void onSave() {
 		data.clear();
-		data.hardness = TableUtils.getAllValuesInColumn(table, COL_NUM_HARDNESS);
-		data.dataSize = data.hardness.size();
+		data.time = TableUtils.getAllValuesInColumn(table, COL_NUM_TIME);
+		data.mass = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS);
+		data.cone_height = TableUtils.getAllValuesInColumn(table, COL_NUM_CONE_HEIGHT);
+		data.cone_radius = TableUtils.getAllValuesInColumn(table, COL_NUM_CONE_RADIUS);
+		data.dataSize = data.mass.size();
 		calculate();
-		main.setCohesionIndexData();
+		main.setFlowData();
 		setVisible(false);
 	}
 
 	private void calculate() {
-		cohesionIndex = 0;
+		flowability = 0;
+		angle_of_response = 0;
 		for (int i = 0; i < table.getRowCount(); i++) {
-			cohesionIndex += data.hardness.get(i);
+			flowability += data.time.get(i);
+			angle_of_response += Math.toDegrees( Math.atan(data.cone_height.get(i) / data.cone_radius.get(i)) );
+			//System.out.println(angle_of_response);
 		}
-		cohesionIndex /= table.getRowCount();
+		flowability /= table.getRowCount();
+		angle_of_response /= table.getRowCount();
+		//System.out.println(flowability);
 	}
 
-	public CohesionIndexData getData() {
+	public PowderFlowData getData() {
 		return data;
 	}
 	
-	public float getCohesionIndex() {
-		return cohesionIndex;
+	public float getAngle_of_response() {
+		return angle_of_response;
 	}
 	
-	public void setData(CohesionIndexData data) {
+	public float getFlowability() {
+		return flowability;
+	}
+	
+	public void setData(PowderFlowData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
@@ -151,7 +173,10 @@ public class CohesionIndexInput extends JFrame {
 			return;
 		}
 		TableUtils.setDataCount(model, data.dataSize);
-		TableUtils.setAllValuesInColumn(table, COL_NUM_HARDNESS, data.hardness);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS, data.mass);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_CONE_HEIGHT, data.cone_height);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_CONE_RADIUS, data.cone_radius);
+		TableUtils.setAllValuesInColumn(table, COL_NUM_TIME, data.time);
 		calculate();
 	}
 	
@@ -162,7 +187,8 @@ public class CohesionIndexInput extends JFrame {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			model.setRowCount(0);
-			cohesionIndex = 0;
+			flowability = 0;
+			angle_of_response = 0;
 		}
 	}
 	

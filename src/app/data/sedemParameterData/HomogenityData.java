@@ -1,6 +1,8 @@
-package app.sedem.parameters.homogeneity;
+package app.data.sedemParameterData;
 
 import java.util.List;
+
+import app.data.other.HomogenityTemplate;
 
 public class HomogenityData {
 	

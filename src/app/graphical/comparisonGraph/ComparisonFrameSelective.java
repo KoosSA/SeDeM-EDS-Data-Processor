@@ -1,4 +1,4 @@
-package app.graphical;
+package app.graphical.comparisonGraph;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import app.utils.GraphData;
+import app.data.other.GraphData;
+import app.graphical.MainFrame;
+import app.graphical.SeDeMPolygon;
 
 public class ComparisonFrameSelective extends JFrame {
 

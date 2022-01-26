@@ -1,4 +1,4 @@
-package app.graphical;
+package app.graphical.comparisonGraph;
 
 import java.awt.Button;
 import java.awt.Color;

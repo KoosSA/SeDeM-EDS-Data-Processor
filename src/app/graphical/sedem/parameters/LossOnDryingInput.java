@@ -1,4 +1,4 @@
-package app.sedem.parameters.hygroscopicity;
+package app.graphical.sedem.parameters;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,33 +18,34 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import app.data.sedemParameterData.LossOnDryingData;
 import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
-public class HygroInput extends JFrame {
+public class LossOnDryingInput extends JFrame {
 
 	private static final long serialVersionUID = 2105439747754898807L;
 	private JPanel contentPane;
-	private HygroData data = new HygroData();
+	private LossOnDryingData data = new LossOnDryingData();
 	private JTable table;
 	private DefaultTableModel model;
 	private MainFrame main;
-	private final int COL_NUM_MASS_CONTAINER = 0;
-	private final int COL_NUM_MASS_BEFORE = 1;
+	private LossOnDryingInput instance;
 	private final int COL_NUM_MASS_AFTER = 2;
+	private final int COL_NUM_MASS_BEFORE = 1;
+	private final int COL_NUM_MASS_DELTA = 5;
+	private final int COL_NUM_MASS_CONTAINER = 0;
 	private final int COL_NUM_MASS_POWDER_BEFORE = 3;
 	private final int COL_NUM_MASS_POWDER_AFTER = 4;
-	private final int COL_NUM_MASS_DELTA = 5;
-	private final int COL_NUM_PERCENTAGE_GAIN = 6;
-	private float percent_gain;
-	private HygroInput instance;
+	private final int COL_NUM_PERCENT_LOSS = 6;
+	private float percent_lost;
 	private List<Float> mi = new ArrayList<Float>();
 	private List<Float> mf = new ArrayList<Float>();
 	private List<Float> dm = new ArrayList<Float>();
 	private List<Float> pl = new ArrayList<Float>();
 
-	public HygroInput(MainFrame mainFrame) {
+	public LossOnDryingInput(MainFrame mainFrame) {
 		instance = this;
 		setBackground(Color.LIGHT_GRAY);
 		setType(Type.UTILITY);
@@ -57,7 +58,7 @@ public class HygroInput extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Hygroscopicity Data");
+		JLabel lblNewLabel = new JLabel("Loss on Drying Data");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -72,10 +73,10 @@ public class HygroInput extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Weight Container (g)", "Container & Substance Initial Mass (g)", "Container & Substance Final Mass (g)", "Substance Initial Mass (g)", "Substance Final Mass (g)", "Delta Mass (g)", "% Gain (%)"
+				"Container Weight (g)", "Before + Container (g)", "After + Container (g)", "Weight Before (g)", "Weight After (g)", "Delta Weight (g)", "% Loss"
 			}
 		) {
-			private static final long serialVersionUID = 8002144398192845301L;
+			private static final long serialVersionUID = -6059203927781911442L;
 			Class<?>[] columnTypes = new Class[] {
 				Float.class, Float.class, Float.class, Float.class, Float.class, Float.class, Float.class
 			};
@@ -89,6 +90,12 @@ public class HygroInput extends JFrame {
 				return columnEditables[column];
 			}
 		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(112);
+		table.getColumnModel().getColumn(1).setPreferredWidth(121);
+		table.getColumnModel().getColumn(2).setPreferredWidth(115);
+		table.getColumnModel().getColumn(3).setPreferredWidth(97);
+		table.getColumnModel().getColumn(4).setPreferredWidth(94);
+		table.getColumnModel().getColumn(5).setPreferredWidth(90);
 		scrollPane.setViewportView(table);
 		model = (DefaultTableModel) table.getModel();
 		
@@ -138,10 +145,9 @@ public class HygroInput extends JFrame {
 		});
 		panel.add(btn_save);
 		
+		setAlwaysOnTop(true);
 		pack();
 		setLocationRelativeTo(null);
-		
-		setAlwaysOnTop(true);
 	}
 	
 	private void onSave() {
@@ -151,12 +157,12 @@ public class HygroInput extends JFrame {
 		data.mass_before = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_BEFORE);
 		data.mass_container = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_CONTAINER);
 		calculate();
-		main.setHygroData();
+		main.setLODData();
 		setVisible(false);
 	}
 
 	private void calculate() {
-		percent_gain = 0;
+		percent_lost = 0;
 		try {
 			List<Float> mp = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_CONTAINER);
 			List<Float> mic = TableUtils.getAllValuesInColumn(table, COL_NUM_MASS_BEFORE);
@@ -168,27 +174,27 @@ public class HygroInput extends JFrame {
 			for (int i = 0; i < table.getRowCount(); i++) {
 				mi.add(mic.get(i) - mp.get(i));
 				mf.add(mfc.get(i) - mp.get(i));
-				dm.add(mf.get(i) - mi.get(i));
+				dm.add(mi.get(i) - mf.get(i));
 				pl.add(dm.get(i) / mi.get(i) * 100);
-				percent_gain += pl.get(i);
+				percent_lost += pl.get(i);
 			}
-			percent_gain /= table.getRowCount();
+			percent_lost /= table.getRowCount();
 			TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_POWDER_BEFORE, mi);
 			TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_POWDER_AFTER, mf);
 			TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_DELTA, dm);
-			TableUtils.setAllValuesInColumn(table, COL_NUM_PERCENTAGE_GAIN, pl);
+			TableUtils.setAllValuesInColumn(table, COL_NUM_PERCENT_LOSS, pl);
 		} catch (Exception e) {}
 	}
 
-	public HygroData getData() {
+	public LossOnDryingData getData() {
 		return data;
 	}
 	
-	public float getPercent_gain() {
-		return percent_gain;
+	public float getPercent_lost() {
+		return percent_lost;
 	}
 
-	public void setData(HygroData data) {
+	public void setData(LossOnDryingData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
@@ -202,7 +208,9 @@ public class HygroInput extends JFrame {
 		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_AFTER, data.mass_after);
 		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_BEFORE, data.mass_before);
 		TableUtils.setAllValuesInColumn(table, COL_NUM_MASS_CONTAINER, data.mass_container);
-		calculate();
+		if (table.getRowCount() > 0) {
+			calculate();
+		}
 	}
 	
 	private void clearAllData(boolean skip) {
@@ -212,7 +220,7 @@ public class HygroInput extends JFrame {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			model.setRowCount(0);
-			percent_gain = 0;
+			percent_lost = 0;
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package app.sedem.parameters.homogeneity;
+package app.data.other;
 
 import java.util.List;
 

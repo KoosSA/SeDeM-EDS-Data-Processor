@@ -2,7 +2,7 @@ package app.utils;
 
 import java.util.List;
 
-import app.sedem.parameters.SeDeMParameters;
+import app.data.lists.SeDeMParameters;
 
 public class Calculator {
 	

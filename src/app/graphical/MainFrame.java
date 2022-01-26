@@ -28,24 +28,26 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-import app.sedem.SeDeMData;
-import app.sedem.parameters.SeDeMParameters;
-import app.sedem.parameters.cohesionIndex.CohesionIndexData;
-import app.sedem.parameters.cohesionIndex.CohesionIndexInput;
-import app.sedem.parameters.density.DensityData;
-import app.sedem.parameters.density.DensityInput;
-import app.sedem.parameters.homogeneity.HomogenityData;
-import app.sedem.parameters.homogeneity.HomogenityInput;
-import app.sedem.parameters.hygroscopicity.HygroData;
-import app.sedem.parameters.hygroscopicity.HygroInput;
-import app.sedem.parameters.lossondrying.LODData;
-import app.sedem.parameters.lossondrying.LODInput;
-import app.sedem.parameters.powderflow.PowderFlowData;
-import app.sedem.parameters.powderflow.PowderFlowInput;
+import app.data.ProjectData;
+import app.data.SeDeMData;
+import app.data.lists.Result;
+import app.data.lists.SeDeMParameters;
+import app.data.sedemParameterData.CohesionIndexData;
+import app.data.sedemParameterData.DensityData;
+import app.data.sedemParameterData.HomogenityData;
+import app.data.sedemParameterData.HygroscopicityData;
+import app.data.sedemParameterData.LossOnDryingData;
+import app.data.sedemParameterData.PowderFlowData;
+import app.graphical.comparisonGraph.ComparisonFrameSelective;
+import app.graphical.correctiveExcipient.CorrectiveExcipientFrame;
+import app.graphical.sedem.parameters.CohesionIndexInput;
+import app.graphical.sedem.parameters.DensityInput;
+import app.graphical.sedem.parameters.HomogenityInput;
+import app.graphical.sedem.parameters.HygroscopicityInput;
+import app.graphical.sedem.parameters.LossOnDryingInput;
+import app.graphical.sedem.parameters.PowderFlowInput;
 import app.utils.Calculator;
 import app.utils.FileUtil;
-import app.utils.ProjectData;
-import app.utils.Result;
 import app.utils.TableUtils;
 
 public class MainFrame extends JFrame {
@@ -65,8 +67,8 @@ public class MainFrame extends JFrame {
 	private DensityInput density = new DensityInput(this);
 	private PowderFlowInput flow = new PowderFlowInput(this);
 	private CohesionIndexInput cohIndex = new CohesionIndexInput(this);
-	private LODInput lod = new LODInput(this);
-	private HygroInput hygro = new HygroInput(this);
+	private LossOnDryingInput lod = new LossOnDryingInput(this);
+	private HygroscopicityInput hygro = new HygroscopicityInput(this);
 	
 	//private SeDeMData data = new SeDeMData();
 	private Map<String, SeDeMData> data = new HashMap<>();
@@ -204,11 +206,11 @@ public class MainFrame extends JFrame {
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tabs.getSelectedComponent() != null) {
-					LODData d = data.get(tabs.getSelectedComponent().getName()).lossOnDryingData;
+					LossOnDryingData d = data.get(tabs.getSelectedComponent().getName()).lossOnDryingData;
 					if (d != null) {
 						lod.setData(d);
 					} else {
-						lod.setData(new LODData());
+						lod.setData(new LossOnDryingData());
 					}
 					lod.setVisible(true);
 				}
@@ -220,11 +222,11 @@ public class MainFrame extends JFrame {
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tabs.getSelectedComponent() != null) {
-					HygroData d = data.get(tabs.getSelectedComponent().getName()).hygroscopicityData;
+					HygroscopicityData d = data.get(tabs.getSelectedComponent().getName()).hygroscopicityData;
 					if (d != null) {
 						hygro.setData(d);
 					} else {
-						hygro.setData(new HygroData());
+						hygro.setData(new HygroscopicityData());
 					}
 					hygro.setVisible(true);
 				}

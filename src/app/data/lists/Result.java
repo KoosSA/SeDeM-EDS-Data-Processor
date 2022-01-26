@@ -1,4 +1,4 @@
-package app.utils;
+package app.data.lists;
 
 public enum Result {
 	

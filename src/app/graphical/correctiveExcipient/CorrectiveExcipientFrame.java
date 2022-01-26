@@ -1,4 +1,4 @@
-package app.graphical;
+package app.graphical.correctiveExcipient;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,8 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import app.sedem.SeDeMData;
-import app.sedem.parameters.SeDeMIndices;
+import app.data.SeDeMData;
+import app.data.lists.SeDeMIndices;
+import app.graphical.MainFrame;
 
 public class CorrectiveExcipientFrame extends JFrame {
 

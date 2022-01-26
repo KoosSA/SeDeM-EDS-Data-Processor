@@ -1,8 +1,6 @@
-package app.utils;
+package app.data;
 
 import java.util.Map;
-
-import app.sedem.SeDeMData;
 
 public class ProjectData {
 	

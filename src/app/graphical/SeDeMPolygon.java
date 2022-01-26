@@ -14,8 +14,8 @@ import org.jfree.chart.plot.SpiderWebPlot;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import app.sedem.parameters.SeDeMParameters;
-import app.utils.GraphData;
+import app.data.lists.SeDeMParameters;
+import app.data.other.GraphData;
 
 public class SeDeMPolygon {
 	

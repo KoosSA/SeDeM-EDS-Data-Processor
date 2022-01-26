@@ -1,12 +1,12 @@
-package app.sedem;
+package app.data;
 
-import app.sedem.parameters.SeDeMIndices;
-import app.sedem.parameters.cohesionIndex.CohesionIndexData;
-import app.sedem.parameters.density.DensityData;
-import app.sedem.parameters.homogeneity.HomogenityData;
-import app.sedem.parameters.hygroscopicity.HygroData;
-import app.sedem.parameters.lossondrying.LODData;
-import app.sedem.parameters.powderflow.PowderFlowData;
+import app.data.lists.SeDeMIndices;
+import app.data.sedemParameterData.CohesionIndexData;
+import app.data.sedemParameterData.DensityData;
+import app.data.sedemParameterData.HomogenityData;
+import app.data.sedemParameterData.HygroscopicityData;
+import app.data.sedemParameterData.LossOnDryingData;
+import app.data.sedemParameterData.PowderFlowData;
 
 public class SeDeMData {
 	
@@ -14,8 +14,8 @@ public class SeDeMData {
 	public DensityData densityData;
 	public PowderFlowData flowData;
 	public CohesionIndexData cohesionIndexData;
-	public LODData lossOnDryingData;
-	public HygroData hygroscopicityData;
+	public LossOnDryingData lossOnDryingData;
+	public HygroscopicityData hygroscopicityData;
 	
 	public float homogeneityIndex;
 	public float bulkDensity;

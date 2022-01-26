@@ -1,4 +1,4 @@
-package app.sedem.parameters.cohesionIndex;
+package app.data.sedemParameterData;
 
 import java.util.List;
 

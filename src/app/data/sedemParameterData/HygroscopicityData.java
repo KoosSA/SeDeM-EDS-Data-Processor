@@ -1,13 +1,13 @@
-package app.sedem.parameters.lossondrying;
+package app.data.sedemParameterData;
 
 import java.util.List;
 
-public class LODData {
+public class HygroscopicityData {
 	
 	public List<Float> mass_before;
 	public List<Float> mass_after;
-	public int dataSize;
 	public List<Float> mass_container;
+	public int dataSize;
 	
 	public void clear() {
 		try {
