@@ -58,35 +58,35 @@ public class MainFrame extends JFrame {
 	private Map<String, JTable> table_indices_list = new HashMap<String, JTable>();
 	private JTabbedPane tabs = new JTabbedPane();
 	private static MainFrame instance;
-	
+
 	public static final int COL_NUM_PARAM_TABLE_GRAPH_VALUE = 4;
 	public static final int COL_NUM_PARAM_TABLE_PROCESSED_VALUE = 3;
 	public static final int COL_NUM_PARAM_TABLE_ACTUAL_VALUE = 2;
-	
+
 	private HomogenityInput homogenity = new HomogenityInput(this);
 	private DensityInput density = new DensityInput(this);
 	private PowderFlowInput flow = new PowderFlowInput(this);
 	private CohesionIndexInput cohIndex = new CohesionIndexInput(this);
 	private LossOnDryingInput lod = new LossOnDryingInput(this);
 	private HygroscopicityInput hygro = new HygroscopicityInput(this);
-	
+
 	//private SeDeMData data = new SeDeMData();
 	private Map<String, SeDeMData> data = new HashMap<>();
 	//private JPanel panel_chart;
 
 	public MainFrame() {
-		instance = this;
+		MainFrame.instance = this;
 		setTitle("SeDeM EDS Data Processor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnNewMenu = new JMenu("File");
 		menuBar.add(mnNewMenu);
-		
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -97,7 +97,7 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
-		
+
 		JMenuItem mntmNewMenuItem = new JMenuItem("New Data Tab");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,14 +108,15 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open Existing");
+
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open/Add Existing");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProjectData pd = FileUtil.openFile(instance, ProjectData.class);
 				if (pd != null) {
-					data = pd.data;
-					data.keySet().forEach(key -> {
+					//data = pd.data;
+					data.putAll(pd.data);
+					pd.data.keySet().forEach(key -> {
 						Component c = addDataTab(key);
 						tabs.add(c);
 						tabs.setSelectedComponent(c);
@@ -126,7 +127,7 @@ public class MainFrame extends JFrame {
 
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
-		
+
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Save Project");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,7 +137,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
-		
+
 		JMenuItem mntmNewMenuItem_del = new JMenuItem("Delete Current Tab");
 		mntmNewMenuItem_del.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,10 +151,10 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_del);
-		
+
 		JMenu mnNewMenu_1 = new JMenu("Data");
 		menuBar.add(mnNewMenu_1);
-		
+
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Density");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -169,7 +170,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_3);
-		
+
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Cohesion Index");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -185,7 +186,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_8);
-		
+
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Powder Flow");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -201,7 +202,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_6);
-		
+
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Loss On Drying");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -217,7 +218,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_4);
-		
+
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Hygroscopicity");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,7 +234,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
-		
+
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Homogeneity");
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 			@Override
@@ -250,23 +251,23 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_11);
-		
+
 		JMenu mnNewMenu_utilities = new JMenu("Utilities");
 		menuBar.add(mnNewMenu_utilities);
-		
+
 		JMenuItem mntmNewMenuItem_Comparison = new JMenuItem("Comparison");
 		mnNewMenu_utilities.add(mntmNewMenuItem_Comparison);
 		mntmNewMenuItem_Comparison.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//String name = JOptionPane.showInputDialog("Enter name for new comparison:");
 				//if (name != null && name.length() > 0) {
-					
+
 				//}
 				//comp.setVisible(true);
 				new ComparisonFrameSelective("Data Comparison", instance);
 			}
 		});
-		
+
 		JMenuItem mntmNewMenuItem_Corrective_Excipient = new JMenuItem("Corrective Excipient Calculation");
 		mnNewMenu_utilities.add(mntmNewMenuItem_Corrective_Excipient);
 		mntmNewMenuItem_Corrective_Excipient.addActionListener(new ActionListener() {
@@ -274,22 +275,22 @@ public class MainFrame extends JFrame {
 				new CorrectiveExcipientFrame("Corrective Excipient Calculation", instance);
 			}
 		});
-		
-		
-		
+
+
+
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		
+
+
 		contentPane.add(tabs);
-		
+
 		setLocationRelativeTo(null);
-		
+
 	}
-	
+
 	private JScrollPane addDataTab(String name){
 		data.putIfAbsent(name, new SeDeMData());
 		JScrollPane scrollPane = new JScrollPane();
@@ -298,17 +299,17 @@ public class MainFrame extends JFrame {
 		panel_tab.setName(name);
 		panel_tab.setBackground(Color.LIGHT_GRAY);
 		panel_tab.setLayout(new BoxLayout(panel_tab, BoxLayout.Y_AXIS));
-		
+
 		JScrollPane parameter_panel = new JScrollPane();
 		JTable table_parameters = createParameterTable(name, parameter_panel);
 		panel_tab.add(parameter_panel);
-		
+
 		panel_tab.add(Box.createVerticalStrut(50));
-		
+
 		JScrollPane indices = new JScrollPane();
 		createIndicesTable(name, indices);
 		panel_tab.add(indices);
-		
+
 		JPanel panel_chart = new JPanel();
 		panel_chart.add(SeDeMPolygon.createChartPanel(TableUtils.getAllValuesInColumn(table_parameters, COL_NUM_PARAM_TABLE_GRAPH_VALUE), name));
 		table_parameters.getModel().addTableModelListener(new TableModelListener() {
@@ -321,32 +322,32 @@ public class MainFrame extends JFrame {
 
 		});
 		panel_tab.add(panel_chart);
-		
+
 		scrollPane.setViewportView(panel_tab);
 		return scrollPane;
 	}
-	
+
 	private void updateIndices() {
 		String name = tabs.getSelectedComponent().getName();
 		List<Float> processedParameters = TableUtils.getAllValuesInColumn(table_parameters_list.get(name), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		JTable indexTable = table_indices_list.get(name);
-		
+
 		indexTable.setValueAt(Calculator.calculateDimensionIndex(processedParameters), 0, 2);
 		indexTable.setValueAt(Calculator.calculateCompresibilityIndex(processedParameters), 1, 2);
 		indexTable.setValueAt(Calculator.calculateFlowabilityIndex(processedParameters), 2, 2);
 		indexTable.setValueAt(Calculator.calculateLubricityStabilityIndex(processedParameters), 3, 2);
 		indexTable.setValueAt(Calculator.calculateLubricityDosageIndex(processedParameters), 4, 2);
-		
+
 		data.get(name).dimension_index = Calculator.calculateDimensionIndex(processedParameters);
 		data.get(name).compressibility_index = Calculator.calculateCompresibilityIndex(processedParameters);
 		data.get(name).flowability_index = Calculator.calculateFlowabilityIndex(processedParameters);
 		data.get(name).lubricity_dasage_index = Calculator.calculateLubricityDosageIndex(processedParameters);
 		data.get(name).lubricity_stability_index = Calculator.calculateLubricityStabilityIndex(processedParameters);
-		
+
 		indexTable.setValueAt(Calculator.calculateIP(processedParameters), 5, 2);
 		indexTable.setValueAt(Calculator.calculateIPP(processedParameters), 6, 2);
 		indexTable.setValueAt(Calculator.calculateIGC(processedParameters), 7, 2);
-		
+
 		List<Float> results = TableUtils.getAllValuesInColumn(indexTable, 2);
 		for (int i = 0; i < 5; i++) {
 			indexTable.setValueAt((results.get(i) >= 5 ? Result.PASS : Result.FAIL), i, 3);
@@ -354,8 +355,8 @@ public class MainFrame extends JFrame {
 		indexTable.setValueAt((results.get(5) >= 0.5f ? Result.PASS : Result.FAIL), 5, 3);
 		indexTable.setValueAt((results.get(6) >= 5f ? Result.PASS : Result.FAIL), 6, 3);
 		indexTable.setValueAt((results.get(7) >= 5f ? Result.PASS : Result.FAIL), 7, 3);
-		
-		
+
+
 	}
 
 	private JTable createIndicesTable(String name, JScrollPane scroll) {
@@ -399,7 +400,7 @@ public class MainFrame extends JFrame {
 		scroll.setViewportView(table_parameters);
 		Dimension d = table_parameters.getPreferredSize();
 		scroll.setPreferredSize(new Dimension(d.width, table_parameters.getRowHeight() * (table_parameters.getRowCount() + 2)));
-		
+
 		return table_parameters;
 	}
 
@@ -443,7 +444,7 @@ public class MainFrame extends JFrame {
 		});
 		table_parameters.getColumnModel().getColumn(0).setPreferredWidth(111);
 		table_parameters.getColumnModel().getColumn(1).setPreferredWidth(40);
-		
+
 		//table_panel.add(table_parameters, BorderLayout.CENTER);
 		//table_panel.add(table_parameters.getTableHeader(), BorderLayout.NORTH);
 		table_panel.setViewportView(table_parameters);
@@ -451,7 +452,7 @@ public class MainFrame extends JFrame {
 		table_panel.setPreferredSize(new Dimension(d.width, table_parameters.getRowHeight() * (table_parameters.getRowCount() + 2)));
 		return table_parameters;
 	}
-	
+
 	public void setHomogenityData() {
 		System.out.println(tabs.getSelectedComponent().getName());
 		data.get(tabs.getSelectedComponent().getName()).homogeneityIndex = homogenity.getHomogenityIndex();
@@ -459,7 +460,7 @@ public class MainFrame extends JFrame {
 		data.get(tabs.getSelectedComponent().getName()).particlesSmallerThan45um = homogenity.getPercentSmallerThan(45.0f);
 		doCalcs();
 	}
-	
+
 	public void setDensityData() {
 		float bulk = density.getBulkDensity();
 		float tapped = density.getTappedDensity();
@@ -468,7 +469,7 @@ public class MainFrame extends JFrame {
 		data.get(tabs.getSelectedComponent().getName()).tappedDensity = tapped;
 		doCalcs();
 	}
-	
+
 
 	public void setFlowData() {
 		data.get(tabs.getSelectedComponent().getName()).flowData = flow.getData();
@@ -476,93 +477,93 @@ public class MainFrame extends JFrame {
 		data.get(tabs.getSelectedComponent().getName()).powderFlow = flow.getFlowability();
 		doCalcs();
 	}
-	
+
 	public void setCohesionIndexData() {
 		data.get(tabs.getSelectedComponent().getName()).cohesionIndexData = cohIndex.getData();
 		data.get(tabs.getSelectedComponent().getName()).cohesionIndex = cohIndex.getCohesionIndex();
 		doCalcs();
 	}
-	
+
 	public void setLODData() {
 		data.get(tabs.getSelectedComponent().getName()).lossOnDryingData = lod.getData();
 		data.get(tabs.getSelectedComponent().getName()).lossOnDrying = lod.getPercent_lost();
 		doCalcs();
 	}
-	
+
 
 	public void setHygroData() {
 		data.get(tabs.getSelectedComponent().getName()).hygroscopicityData = hygro.getData();
 		data.get(tabs.getSelectedComponent().getName()).hygroscopicity = hygro.getPercent_gain();
 		doCalcs();
 	}
-	
+
 	private void doCalcs() {
 		float processed = 0;
 		SeDeMData d = data.get(tabs.getSelectedComponent().getName());
 		JTable table_parameters = table_parameters_list.get(tabs.getSelectedComponent().getName());
-		
+
 		if (d.bulkDensity != 0 && d.tappedDensity != 0) {
 			data.get(tabs.getSelectedComponent().getName()).hausnerRatio = d.tappedDensity / d.bulkDensity;
 			data.get(tabs.getSelectedComponent().getName()).carrIndex = ((d.tappedDensity - d.bulkDensity) / d.tappedDensity) * 100;
 			data.get(tabs.getSelectedComponent().getName()).interParticlePorosity = (d.tappedDensity - d.bulkDensity) / (d.tappedDensity * d.bulkDensity);
 		}
-		
+
 		table_parameters.setValueAt(d.bulkDensity, SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.bulkDensity * 10;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Bulk_Density.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-		
+
 		table_parameters.setValueAt(d.tappedDensity, SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.tappedDensity * 10;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Tapped_Density.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-	
+
 		table_parameters.setValueAt(d.homogeneityIndex, SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.homogeneityIndex * 500;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Homogeneity_Index.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 		processed = 0;
-		
+
 		table_parameters.setValueAt(d.hausnerRatio, SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (10 * d.hausnerRatio) / 3;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hausner_Ratio.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-	
+
 		table_parameters.setValueAt(d.carrIndex, SeDeMParameters.Carrs_Index.ordinal(), 2);
 		processed = d.carrIndex / 5;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Carrs_Index.ordinal(), 3);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Carrs_Index.ordinal(), 4);
-	
+
 		table_parameters.setValueAt(d.angleOfResponse, SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - ( d.angleOfResponse / 5 );
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Angle_of_Repose.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-		
+
 		table_parameters.setValueAt(d.cohesionIndex, SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = d.cohesionIndex / 20;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Cohesion_Index.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-		
+
 		table_parameters.setValueAt(d.hygroscopicity, SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (d.hygroscopicity / 2);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Hygroscopicity.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-		
+
 		table_parameters.setValueAt(d.interParticlePorosity, SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = (d.interParticlePorosity * 10) / 1.2f;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Inter_particle_Porosity.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-		
+
 		table_parameters.setValueAt(d.lossOnDrying, SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - d.lossOnDrying;
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Loss_on_Drying.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-		
+
 		table_parameters.setValueAt(d.powderFlow, SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (d.powderFlow / 2);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
-		
+
 		table_parameters.setValueAt(d.particlesSmallerThan45um, SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (d.particlesSmallerThan45um / 5);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
@@ -572,15 +573,15 @@ public class MainFrame extends JFrame {
 	public static Map<String, SeDeMData> getProjectData() {
 		return instance.data;
 	}
-	
+
 	public JTabbedPane getTabs() {
 		return tabs;
 	}
 
 
-	
 
-	
+
+
 
 
 }
