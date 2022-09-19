@@ -341,12 +341,20 @@ public class MainFrame extends JFrame {
 		data.get(name).dimension_index = Calculator.calculateDimensionIndex(processedParameters);
 		data.get(name).compressibility_index = Calculator.calculateCompresibilityIndex(processedParameters);
 		data.get(name).flowability_index = Calculator.calculateFlowabilityIndex(processedParameters);
-		data.get(name).lubricity_dasage_index = Calculator.calculateLubricityDosageIndex(processedParameters);
+		data.get(name).lubricity_dosage_index = Calculator.calculateLubricityDosageIndex(processedParameters);
 		data.get(name).lubricity_stability_index = Calculator.calculateLubricityStabilityIndex(processedParameters);
+		
+		float igc = Calculator.calculateIGC(processedParameters);
+		float ipp = Calculator.calculateIPP(processedParameters);
+		float ip = Calculator.calculateIP(processedParameters);
 
-		indexTable.setValueAt(Calculator.calculateIP(processedParameters), 5, 2);
-		indexTable.setValueAt(Calculator.calculateIPP(processedParameters), 6, 2);
-		indexTable.setValueAt(Calculator.calculateIGC(processedParameters), 7, 2);
+		indexTable.setValueAt(ip, 5, 2);
+		indexTable.setValueAt(ipp, 6, 2);
+		indexTable.setValueAt(igc , 7, 2);
+		
+		data.get(name).IGC = igc;
+		data.get(name).IP = ip;
+		data.get(name).IPP = ipp;
 
 		List<Float> results = TableUtils.getAllValuesInColumn(indexTable, 2);
 		for (int i = 0; i < 5; i++) {

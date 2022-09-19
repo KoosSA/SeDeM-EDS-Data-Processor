@@ -34,7 +34,7 @@ public class SeDeMData {
 	public float compressibility_index;
 	public float flowability_index;
 	public float lubricity_stability_index;
-	public float lubricity_dasage_index;
+	public float lubricity_dosage_index;
 	
 	public float IP;
 	public float IPP;
@@ -49,7 +49,7 @@ public class SeDeMData {
 		case Flowability:
 			return flowability_index;
 		case Lubricity_Dosage:
-			return lubricity_dasage_index;
+			return lubricity_dosage_index;
 		case Lubricity_Stability:
 			return lubricity_stability_index;
 		default:
