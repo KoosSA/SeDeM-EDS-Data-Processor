@@ -26,21 +26,53 @@ import app.graphical.MainFrame;
 import app.utils.FileUtil;
 import app.utils.TableUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HomogenityInput.
+ */
 public class HomogenityInput extends JFrame {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5710938278410004076L;
+	
+	/** The instance. */
 	private HomogenityInput instance;
+	
+	/** The table. */
 	private JTable table;
+	
+	/** The table model. */
 	private DefaultTableModel tableModel;
+	
+	/** The text area. */
 	private JTextArea textArea;
+	
+	/** The col num range high. */
 	private final int COL_NUM_RANGE_HIGH = 0;
+	
+	/** The col num range low. */
 	private final int COL_NUM_RANGE_LOW = 1;
+	
+	/** The col num range mean. */
 	private final int COL_NUM_RANGE_MEAN = 2;
+	
+	/** The col num percent retained. */
 	private final int COL_NUM_PERCENT_RETAINED = 3;
+	
+	/** The homogenity index. */
 	public static float Fm, dm, deltaFm, homogenityIndex;
+	
+	/** The data. */
 	private HomogenityData data;
+	
+	/** The main. */
 	private MainFrame main;
 
+	/**
+	 * Instantiates a new homogenity input.
+	 *
+	 * @param mainFrame the main frame
+	 */
 	public HomogenityInput(MainFrame mainFrame) {
 		this.main = mainFrame;
 		setType(Type.UTILITY);
@@ -228,6 +260,12 @@ public class HomogenityInput extends JFrame {
 
 	}
 	
+	/**
+	 * Gets the smaller than.
+	 *
+	 * @param value the value
+	 * @return the smaller than
+	 */
 	private float getSmallerThan(float value) {
 		float v = 0;
 		for (int i = 0; i < data.PERCENTAGES_RETAINED.size(); i++) {
@@ -238,6 +276,11 @@ public class HomogenityInput extends JFrame {
 		return v;
 	}
 	
+	/**
+	 * Calculate mean ranges.
+	 *
+	 * @param columnMeans the column means
+	 */
 	private void calculateMeanRanges(int columnMeans) {
 		int numRows = table.getRowCount();
 		float value = 0;
@@ -247,10 +290,20 @@ public class HomogenityInput extends JFrame {
 		}
 	}
 	
+	/**
+	 * Log.
+	 *
+	 * @param text the text
+	 */
 	private void log(String text) {
 		textArea.append("  >> " + text + "\n");
 	}
 	
+	/**
+	 * Clear all data.
+	 *
+	 * @param skip the skip
+	 */
 	private void clearAllData(boolean skip) {
 		int result = JOptionPane.YES_OPTION;
 		if (!skip) {
@@ -267,6 +320,9 @@ public class HomogenityInput extends JFrame {
 		}
 	}
 	
+	/**
+	 * Do calculation.
+	 */
 	private void doCalculation() {
 		try {
 			log("Starting calculation.");
@@ -326,6 +382,12 @@ public class HomogenityInput extends JFrame {
 		}
 	}
 	
+	/**
+	 * Gets the highest value.
+	 *
+	 * @param percentages the percentages
+	 * @return the highest value
+	 */
 	private int getHighestValue(List<Float> percentages) {
 		int index = 0;
 		for (int i = 0; i < percentages.size(); i++) {
@@ -336,24 +398,48 @@ public class HomogenityInput extends JFrame {
 		return index;
 	}
 	
+	/**
+	 * Gets the homogenity index.
+	 *
+	 * @return the homogenity index
+	 */
 	public float getHomogenityIndex() {
 		return homogenityIndex;
 	}
 	
+	/**
+	 * Gets the percent smaller than.
+	 *
+	 * @param value the value
+	 * @return the percent smaller than
+	 */
 	public float getPercentSmallerThan(float value) {
 		return getSmallerThan(value);
 	}
 	
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public HomogenityData getData() {
 		return data;
 	}
 
+	/**
+	 * Sets the data.
+	 *
+	 * @param data the new data
+	 */
 	public void setData(HomogenityData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
 	}
 
+	/**
+	 * Load.
+	 */
 	private void load() {
 		if (data == null) {
 			return;

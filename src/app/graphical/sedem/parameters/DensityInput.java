@@ -22,25 +22,65 @@ import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DensityInput.
+ */
 public class DensityInput extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2105439747754898807L;
+	
+	/** The content pane. */
 	private JPanel contentPane;
+	
+	/** The data. */
 	private DensityData data = new DensityData();
+	
+	/** The table. */
 	private JTable table;
+	
+	/** The model. */
 	private DefaultTableModel model;
+	
+	/** The main. */
 	private MainFrame main;
+	
+	/** The col num bulk density. */
 	private final int COL_NUM_BULK_DENSITY = 3;
+	
+	/** The col num tapped density. */
 	private final int COL_NUM_TAPPED_DENSITY = 4;
+	
+	/** The col num volume initial. */
 	private final int COL_NUM_VOLUME_INITIAL = 1;
+	
+	/** The col num volume after. */
 	private final int COL_NUM_VOLUME_AFTER = 2;
+	
+	/** The col num mass. */
 	private final int COL_NUM_MASS = 0;
+	
+	/** The tapped density. */
 	private float tappedDensity;
+	
+	/** The bulk density. */
 	private float bulkDensity;
+	
+	/** The instance. */
 	private DensityInput instance;
+	
+	/** The bd. */
 	private List<Float> bd = new ArrayList<Float>();
+	
+	/** The td. */
 	private List<Float> td = new ArrayList<Float>();
 
+	/**
+	 * Instantiates a new density input.
+	 *
+	 * @param mainFrame the main frame
+	 */
 	public DensityInput(MainFrame mainFrame) {
 		instance = this;
 		setType(Type.UTILITY);
@@ -134,6 +174,9 @@ public class DensityInput extends JFrame {
 		setAlwaysOnTop(true);
 	}
 	
+	/**
+	 * On save.
+	 */
 	private void onSave() {
 		data.volume_after = TableUtils.getAllValuesInColumn(table, COL_NUM_VOLUME_AFTER);
 		data.volume_before = TableUtils.getAllValuesInColumn(table, COL_NUM_VOLUME_INITIAL);
@@ -146,6 +189,9 @@ public class DensityInput extends JFrame {
 		setVisible(false);
 	}
 
+	/**
+	 * Calculate.
+	 */
 	private void calculate() {
 		tappedDensity = 0;
 		bulkDensity = 0;
@@ -176,24 +222,47 @@ public class DensityInput extends JFrame {
 		return d;
 	}*/
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public DensityData getData() {
 		return data;
 	}
 	
+	/**
+	 * Gets the tapped density.
+	 *
+	 * @return the tapped density
+	 */
 	public float getTappedDensity() {
 		return tappedDensity;
 	}
 	
+	/**
+	 * Gets the bulk density.
+	 *
+	 * @return the bulk density
+	 */
 	public float getBulkDensity() {
 		return bulkDensity;
 	}
 	
+	/**
+	 * Sets the data.
+	 *
+	 * @param data the new data
+	 */
 	public void setData(DensityData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
 	}
 	
+	/**
+	 * Load.
+	 */
 	private void load() {
 		if (data == null) {
 			return;
@@ -207,6 +276,11 @@ public class DensityInput extends JFrame {
 		calculate();
 	}
 	
+	/**
+	 * Clear all data.
+	 *
+	 * @param skip the skip
+	 */
 	private void clearAllData(boolean skip) {
 		int result = JOptionPane.YES_OPTION;
 		if (!skip) {

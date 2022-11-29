@@ -8,29 +8,63 @@ import app.data.SeDeMData;
 import app.data.lists.SeDeMParameters;
 import app.graphical.MainFrame;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GraphData.
+ */
 public class GraphData {
 	
+	/** The data. */
 	private List<Float> data;
+	
+	/** The color. */
 	private Color color;
 	
+	/**
+	 * Instantiates a new graph data.
+	 *
+	 * @param name the name
+	 * @param color the color
+	 */
 	public GraphData(String name, Color color) {
 		SeDeMData sedemData = MainFrame.getProjectData().get(name);
 		data = generate(sedemData);
 		this.color = color;
 	}
 	
+	/**
+	 * Gets the color.
+	 *
+	 * @return the color
+	 */
 	public Color getColor() {
 		return color;
 	}
 	
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public List<Float> getData() {
 		return data;
 	}
 	
+	/**
+	 * Sets the color.
+	 *
+	 * @param color the new color
+	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 	
+	/**
+	 * Generate.
+	 *
+	 * @param d the d
+	 * @return the list
+	 */
 	private List<Float> generate(SeDeMData d) {
 		float processed = 0;
 		List<Float> values = new ArrayList<Float>(12);

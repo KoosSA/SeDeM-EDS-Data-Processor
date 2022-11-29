@@ -13,11 +13,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FileUtil.
+ */
 public class FileUtil {
-	
+
+	/** The gson. */
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	private static FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("Json (*.json)", "json");
 	
+	/** The json filter. */
+	private static FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("Json (*.json)", "json");
+
+
+	/**
+	 * Save a object to file.
+	 *
+	 * @param parent the parent
+	 * @param obj the Object to be saved
+	 */
 	public static void saveFile(Component parent, Object obj) {
 		JFileChooser fc = new JFileChooser();
 		String data = gson.toJson(obj);
@@ -38,7 +52,15 @@ public class FileUtil {
 			}
 		}
 	}
-	
+
+	/**
+	 * Open file.
+	 *
+	 * @param <T> the generic type
+	 * @param parent the parent
+	 * @param type the type
+	 * @return the object represented by T
+	 */
 	public static <T> T openFile(Component parent, Class<T> type) {
 		JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);

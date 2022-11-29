@@ -13,16 +13,35 @@ import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Selector.
+ */
 public class Selector extends JPanel {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8997522860143684443L;
 	
+	/** The checkbox. */
 	private JCheckBox checkbox = new JCheckBox();
+	
+	/** The color button. */
 	private Button color_button = new Button();
+	
+	/** The color. */
 	private Color color = Color.BLACK;
+	
+	/** The instance. */
 	private Selector instance;
+	
+	/** The random. */
 	private Random random = new Random();
 	
+	/**
+	 * Instantiates a new selector.
+	 *
+	 * @param name the name
+	 */
 	public Selector(String name) {
 		instance = this;
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -47,18 +66,38 @@ public class Selector extends JPanel {
 		});
 	}
 	
+	/**
+	 * Sets the on checkbox value changed.
+	 *
+	 * @param actionListener the new on checkbox value changed
+	 */
 	public void setOnCheckboxValueChanged(ActionListener actionListener) {
 		checkbox.addActionListener(actionListener);
 	}
 	
+	/**
+	 * Checks if is selected.
+	 *
+	 * @return true, if is selected
+	 */
 	public boolean isSelected() {
 		return checkbox.isSelected();
 	}
 	
+	/**
+	 * Gets the color.
+	 *
+	 * @return the color
+	 */
 	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * Adds the color change listenor.
+	 *
+	 * @param propertyChangeListener the property change listener
+	 */
 	public void addColorChangeListenor(PropertyChangeListener propertyChangeListener) {
 		color_button.addPropertyChangeListener("background", propertyChangeListener);
 	}

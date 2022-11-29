@@ -21,18 +21,44 @@ import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CohesionIndexInput.
+ */
 public class CohesionIndexInput extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2105439747754898807L;
+	
+	/** The content pane. */
 	private JPanel contentPane;
+	
+	/** The data. */
 	private CohesionIndexData data = new CohesionIndexData();
+	
+	/** The table. */
 	private JTable table;
+	
+	/** The model. */
 	private DefaultTableModel model;
+	
+	/** The main. */
 	private MainFrame main;
+	
+	/** The instance. */
 	private CohesionIndexInput instance;
+	
+	/** The col num hardness. */
 	private final int COL_NUM_HARDNESS = 0;
+	
+	/** The cohesion index. */
 	private float cohesionIndex;
 
+	/**
+	 * Instantiates a new cohesion index input.
+	 *
+	 * @param mainFrame the main frame
+	 */
 	public CohesionIndexInput(MainFrame mainFrame) {
 		instance = this;
 		setBackground(Color.LIGHT_GRAY);
@@ -116,6 +142,9 @@ public class CohesionIndexInput extends JFrame {
 		setAlwaysOnTop(true);
 	}
 	
+	/**
+	 * On save.
+	 */
 	private void onSave() {
 		data.clear();
 		data.hardness = TableUtils.getAllValuesInColumn(table, COL_NUM_HARDNESS);
@@ -125,6 +154,9 @@ public class CohesionIndexInput extends JFrame {
 		setVisible(false);
 	}
 
+	/**
+	 * Calculate.
+	 */
 	private void calculate() {
 		cohesionIndex = 0;
 		for (int i = 0; i < table.getRowCount(); i++) {
@@ -133,20 +165,38 @@ public class CohesionIndexInput extends JFrame {
 		cohesionIndex /= table.getRowCount();
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public CohesionIndexData getData() {
 		return data;
 	}
 	
+	/**
+	 * Gets the cohesion index.
+	 *
+	 * @return the cohesion index
+	 */
 	public float getCohesionIndex() {
 		return cohesionIndex;
 	}
 	
+	/**
+	 * Sets the data.
+	 *
+	 * @param data the new data
+	 */
 	public void setData(CohesionIndexData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
 	}
 	
+	/**
+	 * Load.
+	 */
 	private void load() {
 		if (data == null) {
 			return;
@@ -156,6 +206,11 @@ public class CohesionIndexInput extends JFrame {
 		calculate();
 	}
 	
+	/**
+	 * Clear all data.
+	 *
+	 * @param skip the skip
+	 */
 	private void clearAllData(boolean skip) {
 		int result = JOptionPane.YES_OPTION;
 		if (!skip) {

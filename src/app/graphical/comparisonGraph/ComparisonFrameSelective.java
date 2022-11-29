@@ -19,14 +19,33 @@ import app.data.other.GraphData;
 import app.graphical.MainFrame;
 import app.graphical.SeDeMPolygon;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComparisonFrameSelective.
+ */
 public class ComparisonFrameSelective extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2909389028655044044L;
+	
+	/** The tabs. */
 	private JTabbedPane tabs;
+	
+	/** The graph data. */
 	private Map<String, GraphData> graph_data = new HashMap<String, GraphData>();
+	
+	/** The panel graph. */
 	private JPanel panel_graph;
+	
+	/** The height. */
 	private int width = 850, height = 600;
 	
+	/**
+	 * Instantiates a new comparison frame selective.
+	 *
+	 * @param name the name
+	 * @param main the main
+	 */
 	public ComparisonFrameSelective(String name, MainFrame main) {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		setTitle(name);
@@ -45,6 +64,11 @@ public class ComparisonFrameSelective extends JFrame {
 		
 	}
 	
+	/**
+	 * Creates the selection panel.
+	 *
+	 * @return the j scroll pane
+	 */
 	private JScrollPane createSelectionPanel() {
 		JScrollPane selection_scroll = new JScrollPane();
 		JPanel panel_selection = new JPanel();
@@ -75,6 +99,9 @@ public class ComparisonFrameSelective extends JFrame {
 	}
 	
 
+	/**
+	 * Update graph.
+	 */
 	private void updateGraph() {
 		remove(panel_graph);
 		
@@ -85,6 +112,13 @@ public class ComparisonFrameSelective extends JFrame {
 		panel_graph.revalidate();
 	}
 	
+	/**
+	 * Update graph data.
+	 *
+	 * @param name the name
+	 * @param isSelected the is selected
+	 * @param color the color
+	 */
 	private void updateGraphData(String name, boolean isSelected, Color color) {
 		graph_data.remove(name);
 		if (isSelected) {

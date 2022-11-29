@@ -21,22 +21,56 @@ import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PowderFlowInput.
+ */
 public class PowderFlowInput extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2105439747754898807L;
+
+	/** The content pane. */
 	private JPanel contentPane;
+
+	/** The data. */
 	private PowderFlowData data = new PowderFlowData();
+
+	/** The table. */
 	private JTable table;
+
+	/** The model. */
 	private DefaultTableModel model;
+
+	/** The main. */
 	private MainFrame main;
+
+	/** The col num time. */
 	private final int COL_NUM_TIME = 1;
+
+	/** The col num mass. */
 	private final int COL_NUM_MASS = 0;
+
+	/** The col num cone height. */
 	private final int COL_NUM_CONE_HEIGHT = 2;
+
+	/** The col num cone radius. */
 	private final int COL_NUM_CONE_RADIUS = 3;
+
+	/** The angle of response. */
 	private float angle_of_response;
+
+	/** The flowability. */
 	private float flowability;
+
+	/** The instance. */
 	private PowderFlowInput instance;
 
+	/**
+	 * Instantiates a new powder flow input.
+	 *
+	 * @param mainFrame the main frame
+	 */
 	public PowderFlowInput(MainFrame mainFrame) {
 		instance = this;
 		setBackground(Color.LIGHT_GRAY);
@@ -49,16 +83,16 @@ public class PowderFlowInput extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JLabel lblNewLabel = new JLabel("Powder-Flow Data");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		scrollPane.getViewport().setBackground(Color.LIGHT_GRAY);
-		
+
 		table = new JTable();
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setModel(new DefaultTableModel(
@@ -80,13 +114,13 @@ public class PowderFlowInput extends JFrame {
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
 		table.getColumnModel().getColumn(3).setPreferredWidth(102);
 		scrollPane.setViewportView(table);
-		
+
 		model = (DefaultTableModel) table.getModel();
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
 		contentPane.add(panel, BorderLayout.SOUTH);
-		
+
 		JButton btn_cancel = new JButton("Cancel");
 		btn_cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -94,14 +128,14 @@ public class PowderFlowInput extends JFrame {
 			}
 		});
 		panel.add(btn_cancel);
-		
+
 		JButton btn_addData = new JButton("Add Data");
 		btn_addData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TableUtils.setDataCount((DefaultTableModel) table.getModel(), DataUtils.getDataAmount(instance));
 			}
 		});
-		
+
 		JButton btnNewButton = new JButton("Clear Data");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,7 +144,7 @@ public class PowderFlowInput extends JFrame {
 		});
 		panel.add(btnNewButton);
 		panel.add(btn_addData);
-		
+
 		JButton btn_save = new JButton("Save");
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,13 +152,16 @@ public class PowderFlowInput extends JFrame {
 			}
 		});
 		panel.add(btn_save);
-		
-		
+
+
 		pack();
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
 	}
-	
+
+	/**
+	 * On save.
+	 */
 	private void onSave() {
 		data.clear();
 		data.time = TableUtils.getAllValuesInColumn(table, COL_NUM_TIME);
@@ -137,6 +174,9 @@ public class PowderFlowInput extends JFrame {
 		setVisible(false);
 	}
 
+	/**
+	 * Calculate.
+	 */
 	private void calculate() {
 		flowability = 0;
 		angle_of_response = 0;
@@ -150,24 +190,47 @@ public class PowderFlowInput extends JFrame {
 		//System.out.println(flowability);
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public PowderFlowData getData() {
 		return data;
 	}
-	
+
+	/**
+	 * Gets the angle of response.
+	 *
+	 * @return the angle of response
+	 */
 	public float getAngle_of_response() {
 		return angle_of_response;
 	}
-	
+
+	/**
+	 * Gets the flowability.
+	 *
+	 * @return the flowability
+	 */
 	public float getFlowability() {
 		return flowability;
 	}
-	
+
+	/**
+	 * Sets the data.
+	 *
+	 * @param data the new data
+	 */
 	public void setData(PowderFlowData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
 	}
-	
+
+	/**
+	 * Load.
+	 */
 	private void load() {
 		if (data == null) {
 			return;
@@ -179,7 +242,12 @@ public class PowderFlowInput extends JFrame {
 		TableUtils.setAllValuesInColumn(table, COL_NUM_TIME, data.time);
 		calculate();
 	}
-	
+
+	/**
+	 * Clear all data.
+	 *
+	 * @param skip the skip
+	 */
 	private void clearAllData(boolean skip) {
 		int result = JOptionPane.YES_OPTION;
 		if (!skip) {
@@ -191,5 +259,5 @@ public class PowderFlowInput extends JFrame {
 			angle_of_response = 0;
 		}
 	}
-	
+
 }

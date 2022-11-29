@@ -28,8 +28,19 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import app.data.lists.SeDeMParameters;
 import app.data.other.GraphData;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SeDeMPolygon contains methods for creating the SeDeM EDS polygons.
+ */
 public class SeDeMPolygon {
 
+	/**
+	 * Creates the dataset.
+	 *
+	 * @param data the data
+	 * @param name the name
+	 * @return the category dataset
+	 */
 	private static CategoryDataset createDataset(List<Float> data, String name) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		// for (int i = 1; i <= 1; i++) {
@@ -48,6 +59,15 @@ public class SeDeMPolygon {
 		return dataset;
 	}
 
+
+	/**
+	 * Creates the chart.
+	 *
+	 * @param dataset the dataset
+	 * @param title the title
+	 * @param colors the colors
+	 * @return the j free chart
+	 */
 	public static JFreeChart createChart(CategoryDataset dataset, String title, List<Color> colors) {
 		SpiderWebPlot plot = new SpiderWebPlot(dataset) {
 			private static final long serialVersionUID = 9166744064889714872L;
@@ -203,16 +223,37 @@ public class SeDeMPolygon {
 		return chart;
 	}
 
+	/**
+	 * Creates the chart panel.
+	 *
+	 * @param data the data
+	 * @param title the title
+	 * @return the j panel
+	 */
 	public static JPanel createChartPanel(List<Float> data, String title) {
 		JFreeChart jfreechart = createChart(createDataset(data, title), title, null);
 		return new ChartPanel(jfreechart);
 	}
 
+	/**
+	 * Creates the chart panel.
+	 *
+	 * @param data the data
+	 * @param chartName the chart name
+	 * @param colors the colors
+	 * @return the j panel
+	 */
 	public static JPanel createChartPanel(Map<String, List<Float>> data, String chartName, List<Color> colors) {
 		JFreeChart jfreechart = createChart(createDataset(data), chartName, colors);
 		return new ChartPanel(jfreechart);
 	}
 
+	/**
+	 * Creates the dataset.
+	 *
+	 * @param data the data
+	 * @return the category dataset
+	 */
 	private static CategoryDataset createDataset(Map<String, List<Float>> data) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		for (int j = 0; j < SeDeMParameters.values().length; j++) {
@@ -229,11 +270,25 @@ public class SeDeMPolygon {
 		return dataset;
 	}
 
+	/**
+	 * Creates the chart panel.
+	 *
+	 * @param chartName the chart name
+	 * @param data the data
+	 * @return the j panel
+	 */
 	public static JPanel createChartPanel(String chartName, Map<String, GraphData> data) {
 		JFreeChart jfreechart = createChart(chartName, data);
 		return new ChartPanel(jfreechart);
 	}
 
+	/**
+	 * Creates the chart.
+	 *
+	 * @param title the title
+	 * @param data the data
+	 * @return the j free chart
+	 */
 	private static JFreeChart createChart(String title, Map<String, GraphData> data) {
 		CategoryDataset dataset = createDatasetG(data);
 		SpiderWebPlot plot = new SpiderWebPlot(dataset) {
@@ -391,6 +446,12 @@ public class SeDeMPolygon {
 		return chart;
 	}
 
+	/**
+	 * Creates the dataset G.
+	 *
+	 * @param data the data
+	 * @return the category dataset
+	 */
 	private static CategoryDataset createDatasetG(Map<String, GraphData> data) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 //        for (int j = 0; j < SeDeMParameters.values().length; j++) {

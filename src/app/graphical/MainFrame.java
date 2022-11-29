@@ -50,30 +50,65 @@ import app.utils.Calculator;
 import app.utils.FileUtil;
 import app.utils.TableUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainFrame.
+ */
 public class MainFrame extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2801820765057303648L;
+	
+	/** The content pane. */
 	private JPanel contentPane;
+	
+	/** The table parameters list. */
 	private Map<String, JTable> table_parameters_list = new HashMap<String, JTable>();
+	
+	/** The table indices list. */
 	private Map<String, JTable> table_indices_list = new HashMap<String, JTable>();
+	
+	/** The tabs. */
 	private JTabbedPane tabs = new JTabbedPane();
+	
+	/** The instance. */
 	private static MainFrame instance;
 
+	/** The Constant COL_NUM_PARAM_TABLE_GRAPH_VALUE. */
 	public static final int COL_NUM_PARAM_TABLE_GRAPH_VALUE = 4;
+	
+	/** The Constant COL_NUM_PARAM_TABLE_PROCESSED_VALUE. */
 	public static final int COL_NUM_PARAM_TABLE_PROCESSED_VALUE = 3;
+	
+	/** The Constant COL_NUM_PARAM_TABLE_ACTUAL_VALUE. */
 	public static final int COL_NUM_PARAM_TABLE_ACTUAL_VALUE = 2;
 
+	/** The homogenity. */
 	private HomogenityInput homogenity = new HomogenityInput(this);
+	
+	/** The density. */
 	private DensityInput density = new DensityInput(this);
+	
+	/** The flow. */
 	private PowderFlowInput flow = new PowderFlowInput(this);
+	
+	/** The coh index. */
 	private CohesionIndexInput cohIndex = new CohesionIndexInput(this);
+	
+	/** The lod. */
 	private LossOnDryingInput lod = new LossOnDryingInput(this);
+	
+	/** The hygro. */
 	private HygroscopicityInput hygro = new HygroscopicityInput(this);
 
+	/** The data. */
 	//private SeDeMData data = new SeDeMData();
 	private Map<String, SeDeMData> data = new HashMap<>();
 	//private JPanel panel_chart;
 
+	/**
+	 * Instantiates a new main frame.
+	 */
 	public MainFrame() {
 		MainFrame.instance = this;
 		setTitle("SeDeM EDS Data Processor");
@@ -291,6 +326,12 @@ public class MainFrame extends JFrame {
 
 	}
 
+	/**
+	 * Adds the data tab.
+	 *
+	 * @param name the name
+	 * @return the jscrollpane
+	 */
 	private JScrollPane addDataTab(String name){
 		data.putIfAbsent(name, new SeDeMData());
 		JScrollPane scrollPane = new JScrollPane();
@@ -327,6 +368,9 @@ public class MainFrame extends JFrame {
 		return scrollPane;
 	}
 
+	/**
+	 * Update indices values.
+	 */
 	private void updateIndices() {
 		String name = tabs.getSelectedComponent().getName();
 		List<Float> processedParameters = TableUtils.getAllValuesInColumn(table_parameters_list.get(name), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
@@ -343,7 +387,7 @@ public class MainFrame extends JFrame {
 		data.get(name).flowability_index = Calculator.calculateFlowabilityIndex(processedParameters);
 		data.get(name).lubricity_dosage_index = Calculator.calculateLubricityDosageIndex(processedParameters);
 		data.get(name).lubricity_stability_index = Calculator.calculateLubricityStabilityIndex(processedParameters);
-		
+
 		float igc = Calculator.calculateIGC(processedParameters);
 		float ipp = Calculator.calculateIPP(processedParameters);
 		float ip = Calculator.calculateIP(processedParameters);
@@ -351,7 +395,7 @@ public class MainFrame extends JFrame {
 		indexTable.setValueAt(ip, 5, 2);
 		indexTable.setValueAt(ipp, 6, 2);
 		indexTable.setValueAt(igc , 7, 2);
-		
+
 		data.get(name).IGC = igc;
 		data.get(name).IP = ip;
 		data.get(name).IPP = ipp;
@@ -367,6 +411,13 @@ public class MainFrame extends JFrame {
 
 	}
 
+	/**
+	 * Creates the indices table.
+	 *
+	 * @param name the name
+	 * @param scroll the scroll
+	 * @return the j table
+	 */
 	private JTable createIndicesTable(String name, JScrollPane scroll) {
 		//scroll.setLayout(new BorderLayout());
 		JTable table_parameters = new JTable();
@@ -412,6 +463,13 @@ public class MainFrame extends JFrame {
 		return table_parameters;
 	}
 
+	/**
+	 * Creates the parameter table.
+	 *
+	 * @param name the name
+	 * @param table_panel the table panel
+	 * @return the j table
+	 */
 	private JTable createParameterTable(String name, JScrollPane table_panel) {
 		//table_panel.setLayout(new BorderLayout());
 		JTable table_parameters = new JTable();
@@ -461,6 +519,9 @@ public class MainFrame extends JFrame {
 		return table_parameters;
 	}
 
+	/**
+	 * Sets the homogenity data.
+	 */
 	public void setHomogenityData() {
 		System.out.println(tabs.getSelectedComponent().getName());
 		data.get(tabs.getSelectedComponent().getName()).homogeneityIndex = homogenity.getHomogenityIndex();
@@ -469,6 +530,9 @@ public class MainFrame extends JFrame {
 		doCalcs();
 	}
 
+	/**
+	 * Sets the density data.
+	 */
 	public void setDensityData() {
 		float bulk = density.getBulkDensity();
 		float tapped = density.getTappedDensity();
@@ -479,6 +543,9 @@ public class MainFrame extends JFrame {
 	}
 
 
+	/**
+	 * Sets the flow data.
+	 */
 	public void setFlowData() {
 		data.get(tabs.getSelectedComponent().getName()).flowData = flow.getData();
 		data.get(tabs.getSelectedComponent().getName()).angleOfResponse = flow.getAngle_of_response();
@@ -486,12 +553,18 @@ public class MainFrame extends JFrame {
 		doCalcs();
 	}
 
+	/**
+	 * Sets the cohesion index data.
+	 */
 	public void setCohesionIndexData() {
 		data.get(tabs.getSelectedComponent().getName()).cohesionIndexData = cohIndex.getData();
 		data.get(tabs.getSelectedComponent().getName()).cohesionIndex = cohIndex.getCohesionIndex();
 		doCalcs();
 	}
 
+	/**
+	 * Sets the LOD data.
+	 */
 	public void setLODData() {
 		data.get(tabs.getSelectedComponent().getName()).lossOnDryingData = lod.getData();
 		data.get(tabs.getSelectedComponent().getName()).lossOnDrying = lod.getPercent_lost();
@@ -499,12 +572,18 @@ public class MainFrame extends JFrame {
 	}
 
 
+	/**
+	 * Sets the hygroscopicity data.
+	 */
 	public void setHygroData() {
 		data.get(tabs.getSelectedComponent().getName()).hygroscopicityData = hygro.getData();
 		data.get(tabs.getSelectedComponent().getName()).hygroscopicity = hygro.getPercent_gain();
 		doCalcs();
 	}
 
+	/**
+	 * Do calculations.
+	 */
 	private void doCalcs() {
 		float processed = 0;
 		SeDeMData d = data.get(tabs.getSelectedComponent().getName());
@@ -578,10 +657,20 @@ public class MainFrame extends JFrame {
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 	}
 
+	/**
+	 * Gets the project data.
+	 *
+	 * @return the project data
+	 */
 	public static Map<String, SeDeMData> getProjectData() {
 		return instance.data;
 	}
 
+	/**
+	 * Gets the tabs.
+	 *
+	 * @return the tabs
+	 */
 	public JTabbedPane getTabs() {
 		return tabs;
 	}

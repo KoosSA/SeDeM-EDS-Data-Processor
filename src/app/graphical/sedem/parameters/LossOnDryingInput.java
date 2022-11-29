@@ -23,28 +23,74 @@ import app.graphical.MainFrame;
 import app.utils.DataUtils;
 import app.utils.TableUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LossOnDryingInput.
+ */
 public class LossOnDryingInput extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2105439747754898807L;
+	
+	/** The content pane. */
 	private JPanel contentPane;
+	
+	/** The data. */
 	private LossOnDryingData data = new LossOnDryingData();
+	
+	/** The table. */
 	private JTable table;
+	
+	/** The model. */
 	private DefaultTableModel model;
+	
+	/** The main. */
 	private MainFrame main;
+	
+	/** The instance. */
 	private LossOnDryingInput instance;
+	
+	/** The col num mass after. */
 	private final int COL_NUM_MASS_AFTER = 2;
+	
+	/** The col num mass before. */
 	private final int COL_NUM_MASS_BEFORE = 1;
+	
+	/** The col num mass delta. */
 	private final int COL_NUM_MASS_DELTA = 5;
+	
+	/** The col num mass container. */
 	private final int COL_NUM_MASS_CONTAINER = 0;
+	
+	/** The col num mass powder before. */
 	private final int COL_NUM_MASS_POWDER_BEFORE = 3;
+	
+	/** The col num mass powder after. */
 	private final int COL_NUM_MASS_POWDER_AFTER = 4;
+	
+	/** The col num percent loss. */
 	private final int COL_NUM_PERCENT_LOSS = 6;
+	
+	/** The percent lost. */
 	private float percent_lost;
+	
+	/** The mi. */
 	private List<Float> mi = new ArrayList<Float>();
+	
+	/** The mf. */
 	private List<Float> mf = new ArrayList<Float>();
+	
+	/** The dm. */
 	private List<Float> dm = new ArrayList<Float>();
+	
+	/** The pl. */
 	private List<Float> pl = new ArrayList<Float>();
 
+	/**
+	 * Instantiates a new loss on drying input.
+	 *
+	 * @param mainFrame the main frame
+	 */
 	public LossOnDryingInput(MainFrame mainFrame) {
 		instance = this;
 		setBackground(Color.LIGHT_GRAY);
@@ -150,6 +196,9 @@ public class LossOnDryingInput extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
+	/**
+	 * On save.
+	 */
 	private void onSave() {
 		data.clear();
 		data.dataSize = table.getRowCount();
@@ -161,6 +210,9 @@ public class LossOnDryingInput extends JFrame {
 		setVisible(false);
 	}
 
+	/**
+	 * Calculate.
+	 */
 	private void calculate() {
 		percent_lost = 0;
 		try {
@@ -186,20 +238,38 @@ public class LossOnDryingInput extends JFrame {
 		} catch (Exception e) {}
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public LossOnDryingData getData() {
 		return data;
 	}
 	
+	/**
+	 * Gets the percent lost.
+	 *
+	 * @return the percent lost
+	 */
 	public float getPercent_lost() {
 		return percent_lost;
 	}
 
+	/**
+	 * Sets the data.
+	 *
+	 * @param data the new data
+	 */
 	public void setData(LossOnDryingData data) {
 		clearAllData(true);
 		this.data = data;
 		load();
 	}
 	
+	/**
+	 * Load.
+	 */
 	private void load() {
 		if (data == null) {
 			return;
@@ -213,6 +283,11 @@ public class LossOnDryingInput extends JFrame {
 		}
 	}
 	
+	/**
+	 * Clear all data.
+	 *
+	 * @param skip the skip
+	 */
 	private void clearAllData(boolean skip) {
 		int result = JOptionPane.YES_OPTION;
 		if (!skip) {

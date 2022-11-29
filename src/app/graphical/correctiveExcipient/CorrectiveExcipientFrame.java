@@ -26,12 +26,27 @@ import app.data.SeDeMData;
 import app.data.lists.SeDeMIndices;
 import app.graphical.MainFrame;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CorrectiveExcipientFrame.
+ */
 public class CorrectiveExcipientFrame extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5764330672920163598L;
+	
+	/** The calculation display. */
 	private JTextArea calculationDisplay;
+	
+	/** The root. */
 	private JPanel root;
 
+	/**
+	 * Instantiates a new corrective excipient frame.
+	 *
+	 * @param name the name
+	 * @param main the main
+	 */
 	public CorrectiveExcipientFrame(String name, MainFrame main) {
 		setTitle(name);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -44,6 +59,9 @@ public class CorrectiveExcipientFrame extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Construct.
+	 */
 	private void construct() {
 		root = new JPanel();
 		root.setLayout(new BorderLayout());
@@ -54,6 +72,11 @@ public class CorrectiveExcipientFrame extends JFrame {
 		getContentPane().add(root);
 	}
 
+	/**
+	 * Creates the bottom bar.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel createBottomBar() {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -88,6 +111,11 @@ public class CorrectiveExcipientFrame extends JFrame {
 		return panel;
 	}
 
+	/**
+	 * Creates the selector.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel createSelector() {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -130,6 +158,11 @@ public class CorrectiveExcipientFrame extends JFrame {
 		return panel;
 	}
 
+	/**
+	 * Creates the calculation display.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel createCalculationDisplay() {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
@@ -145,6 +178,12 @@ public class CorrectiveExcipientFrame extends JFrame {
 		return panel;
 	}
 
+	/**
+	 * Do calculation.
+	 *
+	 * @param with the with
+	 * @param to the to
+	 */
 	private void doCalculation(String with, String to) {
 		StringBuilder log = new StringBuilder();
 		SeDeMData withData = MainFrame.getProjectData().get(with);
@@ -175,6 +214,12 @@ public class CorrectiveExcipientFrame extends JFrame {
 		
 	}
 	
+	/**
+	 * Creates the image.
+	 *
+	 * @param panel the panel
+	 * @return the buffered image
+	 */
 	private BufferedImage createImage(JPanel panel) {
 	    int w = panel.getWidth();
 	    int h = panel.getHeight();
