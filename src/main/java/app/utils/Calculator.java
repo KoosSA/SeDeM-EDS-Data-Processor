@@ -61,7 +61,7 @@ public class Calculator {
 	 * @return the float
 	 */
 	public static float calculateLubricityDosageIndex(List<Float> processedValues) {
-		float ans = (processedValues.get(SeDeMParameters.Particles_smaller_than_45µm.ordinal()) + processedValues.get(SeDeMParameters.Homogeneity_Index.ordinal())) / 2;
+		float ans = (processedValues.get(SeDeMParameters.Particles_smaller_than_45um.ordinal()) + processedValues.get(SeDeMParameters.Homogeneity_Index.ordinal())) / 2;
 		return ans;
 	}
 
