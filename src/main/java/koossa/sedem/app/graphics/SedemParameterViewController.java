@@ -22,15 +22,15 @@ public class SedemParameterViewController {
 
 	@FXML
 	TableView<SeDeMParameter> parameterTable;
-	static ObservableList<SeDeMParameter> parameterData = FXCollections.observableArrayList();
+	ObservableList<SeDeMParameter> parameterData = FXCollections.observableArrayList();
 	@FXML
 	TableView<SeDeMIndex> indexTable;
-	static ObservableList<SeDeMIndex> indexData = FXCollections.observableArrayList();
+	ObservableList<SeDeMIndex> indexData = FXCollections.observableArrayList();
 	@FXML
 	SwingNode graphPanel;
 
-	static ObservableMap<SeDeMParameters, Double> excipientData = FXCollections.observableHashMap();
-	static String currentName = "";
+	ObservableMap<SeDeMParameters, Double> excipientData = FXCollections.observableHashMap();
+	String currentName = "";
 
 	public void initialize() {
 		parameterTable.setItems(parameterData);
@@ -133,7 +133,7 @@ public class SedemParameterViewController {
 
 	}
 	
-	public static void updateData(ExcipientSeDeMData data) {
+	public void updateData(ExcipientSeDeMData data) {
 		excipientData.clear();
 		currentName = data.excipientName;
 		excipientData.putAll(data.parameters);
