@@ -17,7 +17,8 @@ public class Calculator {
 	 * @return the float
 	 */
 	public static float calculateDimensionIndex(List<Float> processedValues) {
-		float ans = (processedValues.get(SeDeMParameters.Bulk_Density.ordinal()) + processedValues.get(SeDeMParameters.Tapped_Density.ordinal())) / 2;
+		float ans = (processedValues.get(SeDeMParameters.Bulk_Density.ordinal())
+				+ processedValues.get(SeDeMParameters.Tapped_Density.ordinal())) / 2;
 		return ans;
 	}
 
@@ -28,7 +29,9 @@ public class Calculator {
 	 * @return the float
 	 */
 	public static float calculateCompresibilityIndex(List<Float> processedValues) {
-		float ans = (processedValues.get(SeDeMParameters.Inter_particle_Porosity.ordinal()) + processedValues.get(SeDeMParameters.Carrs_Index.ordinal()) + processedValues.get(SeDeMParameters.Cohesion_Index.ordinal())) / 3;
+		float ans = (processedValues.get(SeDeMParameters.Inter_particle_Porosity.ordinal())
+				+ processedValues.get(SeDeMParameters.Carrs_Index.ordinal())
+				+ processedValues.get(SeDeMParameters.Cohesion_Index.ordinal())) / 3;
 		return ans;
 	}
 
@@ -39,7 +42,9 @@ public class Calculator {
 	 * @return the float
 	 */
 	public static float calculateFlowabilityIndex(List<Float> processedValues) {
-		float ans = (processedValues.get(SeDeMParameters.Hausner_Ratio.ordinal()) + processedValues.get(SeDeMParameters.Powder_Flow.ordinal()) + processedValues.get(SeDeMParameters.Angle_of_Repose.ordinal())) / 3;
+		float ans = (processedValues.get(SeDeMParameters.Hausner_Ratio.ordinal())
+				+ processedValues.get(SeDeMParameters.Powder_Flow.ordinal())
+				+ processedValues.get(SeDeMParameters.Angle_of_Repose.ordinal())) / 3;
 		return ans;
 	}
 
@@ -50,7 +55,8 @@ public class Calculator {
 	 * @return the float
 	 */
 	public static float calculateLubricityStabilityIndex(List<Float> processedValues) {
-		float ans = (processedValues.get(SeDeMParameters.Loss_on_Drying.ordinal()) + processedValues.get(SeDeMParameters.Hygroscopicity.ordinal())) / 2;
+		float ans = (processedValues.get(SeDeMParameters.Loss_on_Drying.ordinal())
+				+ processedValues.get(SeDeMParameters.Hygroscopicity.ordinal())) / 2;
 		return ans;
 	}
 
@@ -61,7 +67,8 @@ public class Calculator {
 	 * @return the float
 	 */
 	public static float calculateLubricityDosageIndex(List<Float> processedValues) {
-		float ans = (processedValues.get(SeDeMParameters.Particles_smaller_than_45um.ordinal()) + processedValues.get(SeDeMParameters.Homogeneity_Index.ordinal())) / 2;
+		float ans = (processedValues.get(SeDeMParameters.Particles_smaller_than_45um.ordinal())
+				+ processedValues.get(SeDeMParameters.Homogeneity_Index.ordinal())) / 2;
 		return ans;
 	}
 
@@ -109,7 +116,7 @@ public class Calculator {
 	 * Checks if a paramater pass SeDeM criteria.
 	 *
 	 * @param processedValues the processed values
-	 * @param parameter the parameter
+	 * @param parameter       the parameter
 	 * @return true, if successful
 	 */
 	private static boolean parameterPass(List<Float> processedValues, SeDeMParameters parameter) {
@@ -117,6 +124,10 @@ public class Calculator {
 			return true;
 		}
 		return false;
+	}
+
+	public static double calculateSeDeMValue(double actualValue, double factor, double min, double max) {
+		return Math.clamp(actualValue * factor, min, max);
 	}
 
 }
