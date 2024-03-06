@@ -1,6 +1,5 @@
 package koossa.sedem.app.graphics;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -8,14 +7,15 @@ import java.util.Map;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.stage.Popup;
+import javafx.stage.WindowEvent;
 import koossa.sedem.app.sedemData.ExcipientSeDeMData;
 import koossa.sedem.app.utils.FxFileUtil;
 
@@ -76,7 +76,21 @@ public class MainApplicationWindowController {
 				createNewTab(input.get());
 			}
 		}
-		
+		Popup p = new Popup();
+		try {
+			p.getScene().setRoot(FXMLLoader.load(getClass().getResource("addNewExcipientView.fxml")));
+			p.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					System.out.println("On closing");
+					//TODO Add controller for popup && handle close create new tab hier.
+				}
+			});
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		p.show(tabPanel.getScene().getWindow());
 	}
 	
 	public void onLoadItem() {
