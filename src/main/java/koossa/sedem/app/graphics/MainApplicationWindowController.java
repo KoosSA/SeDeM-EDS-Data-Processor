@@ -1,7 +1,9 @@
 package koossa.sedem.app.graphics;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import koossa.sedem.app.sedemData.ExcipientSeDeMData;
 import koossa.sedem.app.utils.FxFileUtil;
 
@@ -21,9 +25,11 @@ public class MainApplicationWindowController {
 	TabPane tabPanel;
 	ObservableList<Tab> tabs;
 	Map<String, ExcipientSeDeMData> openExcipients;
+	Map<String, String> openPaths;
 	
 	public MainApplicationWindowController() {
 		openExcipients = new HashMap<String, ExcipientSeDeMData>();
+		openPaths = new HashMap<String, String>();
 	}
 	
 	public void initialize() {
@@ -44,6 +50,9 @@ public class MainApplicationWindowController {
 		SedemParameterViewController controller = loader.getController();
 		t.setContent(n);
 		t.setUserData(controller);
+		t.setStyle("-fx-background-colour: #444444ff;");
+		t.getTabPane().setStyle("-fx-background-colour: #444444ff;");
+		tabPanel.getStyleClass().add("floating");
 		ExcipientSeDeMData data = openExcipients.getOrDefault(name, null);
 		if (data != null) {
 			controller.updateData(data);
@@ -78,8 +87,24 @@ public class MainApplicationWindowController {
 		}
 	}
 	
-	public void onSaveExcipient() {
-		FxFileUtil.saveFile(tabPanel, new ExcipientSeDeMData());
+	public void onOpenProject() {
+		List<ExcipientSeDeMData> list = FxFileUtil.openMultiFiles(tabPanel, ExcipientSeDeMData.class);
+		if (list == null) return;
+		list.forEach(data -> {
+			if (data == null) return;
+			if (openExcipients.putIfAbsent(data.excipientName, data) == null) {
+				createNewTab(data.excipientName);
+			}
+		});
 	}
+	
+	public void onSaveExcipient() {
+		try {
+			FxFileUtil.saveFile(tabPanel, openExcipients.get(tabPanel.getSelectionModel().getSelectedItem().getText()));
+		} catch (Exception e) {
+			System.err.println("Cannot save excipient.");
+		}
+	}
+	
 
 }
