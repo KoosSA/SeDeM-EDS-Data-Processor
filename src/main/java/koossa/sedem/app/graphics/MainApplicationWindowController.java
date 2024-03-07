@@ -7,15 +7,15 @@ import java.util.Map;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
-import javafx.stage.Popup;
-import javafx.stage.WindowEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import koossa.sedem.app.sedemData.ExcipientSeDeMData;
 import koossa.sedem.app.utils.FxFileUtil;
 
@@ -76,21 +76,28 @@ public class MainApplicationWindowController {
 				createNewTab(input.get());
 			}
 		}
-		Popup p = new Popup();
-		try {
-			p.getScene().setRoot(FXMLLoader.load(getClass().getResource("addNewExcipientView.fxml")));
-			p.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent event) {
-					System.out.println("On closing");
-					//TODO Add controller for popup && handle close create new tab hier.
-				}
-			});
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		p.show(tabPanel.getScene().getWindow());
+		
+		
+//		Popup p = new Popup();
+//		try {
+//			p.getScene().setRoot(FXMLLoader.load(getClass().getResource("addNewExcipientView.fxml")));
+//			p.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//				@Override
+//				public void handle(WindowEvent event) {
+//					System.out.println("On closing");
+//					//TODO Add controller for popup && handle close create new tab hier.
+//				}
+//			});
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		p.show(tabPanel.getScene().getWindow());
+		
+		Stage ps = new Stage();
+		ps.initOwner(tabPanel.getScene().getWindow());
+		ps.initModality(Modality.APPLICATION_MODAL);
+		ps.initStyle(StageStyle.UTILITY);
+		ps.showAndWait();
 	}
 	
 	public void onLoadItem() {
