@@ -9,11 +9,4 @@ repositories {
 dependencies {
 	implementation group: 'org.jfree', name: 'jfreechart', version: '1.5.4'
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
-	implementation group: 'org.openjfx', name: 'javafx-controls', version: '21.0.2'
-	implementation group: 'org.openjfx', name: 'javafx-graphics', version: '21.0.2'
-	implementation group: 'org.openjfx', name: 'javafx-base', version: '21.0.2'
-	implementation group: 'org.openjfx', name: 'javafx-fxml', version: '21.0.2'
-	implementation group: 'org.openjfx', name: 'javafx-swing', version: '21.0.2'
-	implementation group: 'org.openjfx', name: 'javafx-web', version: '21.0.2'
-	implementation group: 'org.openjfx', name: 'javafx-media', version: '21.0.2'
 }
