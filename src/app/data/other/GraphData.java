@@ -139,7 +139,7 @@ public class GraphData {
 		
 		processed = 10 - (d.particlesSmallerThan45um / 5);
 		processed = Math.min(10, processed);
-		values.set(SeDeMParameters.Particles_smaller_than_45µm.ordinal(), processed);
+		values.set(SeDeMParameters.Particles_smaller_than_45um.ordinal(), processed);
 		processed = 0;
 		
 		return values;

@@ -651,10 +651,10 @@ public class MainFrame extends JFrame {
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
 		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Powder_Flow.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 
-		table_parameters.setValueAt(d.particlesSmallerThan45um, SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
+		table_parameters.setValueAt(d.particlesSmallerThan45um, SeDeMParameters.Particles_smaller_than_45um.ordinal(), COL_NUM_PARAM_TABLE_ACTUAL_VALUE);
 		processed = 10 - (d.particlesSmallerThan45um / 5);
-		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
-		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45µm.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45um.ordinal(), COL_NUM_PARAM_TABLE_PROCESSED_VALUE);
+		table_parameters.setValueAt(Math.max(0, Math.min(10, processed)), SeDeMParameters.Particles_smaller_than_45um.ordinal(), COL_NUM_PARAM_TABLE_GRAPH_VALUE);
 	}
 
 	/**

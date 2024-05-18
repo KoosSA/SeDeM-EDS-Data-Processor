@@ -36,8 +36,8 @@ public enum SeDeMParameters {
 	/** The Hygroscopicity. */
 	Hygroscopicity,
 	
-	/** The Particles smaller than 45 µm. */
-	Particles_smaller_than_45µm,
+	/** The Particles smaller than 45 ï¿½m. */
+	Particles_smaller_than_45um,
 	
 	/** The Homogeneity index. */
 	Homogeneity_Index,
