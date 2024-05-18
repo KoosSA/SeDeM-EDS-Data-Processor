@@ -1,0 +1,10 @@
+app
+app.data
+app.data.lists
+app.data.other
+app.data.sedemParameterData
+app.graphical
+app.graphical.comparisonGraph
+app.graphical.correctiveExcipient
+app.graphical.sedem.parameters
+app.utils
