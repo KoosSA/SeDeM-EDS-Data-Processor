@@ -23,7 +23,7 @@ For any sugestions, bugs or feedback, please file a issue at the issue tab of th
     - Powder flow
     - Loss on drying
     - Hydroscopicity
-    - % Particles smaller than 45 micro meters
+    - Percentage of particles smaller than 45 µm
     - Homogeneity
   - The SeDeM indices:
     - Dimension,
@@ -53,5 +53,7 @@ For any sugestions, bugs or feedback, please file a issue at the issue tab of th
 ![Selective comparison window](https://github.com/KoosSA/SeDeM-EDS-Data-Processor/blob/master/github_assets/comparison.png)
 ![Corrective excipient window](https://github.com/KoosSA/SeDeM-EDS-Data-Processor/blob/master/github_assets/ce-example.png)
 
-
+![Substance tab](github_assets/tab_example.png)
+![Selective comparison window](github_assets/comparison.png)
+![Corrective excipient window](github_assets/ce-example.png)
 
